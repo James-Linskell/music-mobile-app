@@ -4,12 +4,12 @@ import { StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function TabTwoScreen() {
+export default function SongAnalyser() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+    <View style={styles.container} lightColor="rgba(255, 255, 255, 1)" darkColor="rgba(255,255,255,0)">
+      <Text style={styles.title}>Tab One</Text>
+      <View style={styles.separator} lightColor="rgba(0, 0, 0, 0.1)" darkColor="rgba(255,255,255,0.5)" />
+      <EditScreenInfo path="/screens/SongAnalyser.tsx" />
     </View>
   );
 }

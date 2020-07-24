@@ -6,14 +6,19 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          PlaylistAnalyser: {
             screens: {
-              TabOneScreen: 'one',
+              PlaylistAnalyser: 'PlaylistAnalyserHome',
             },
           },
-          TabTwo: {
+          SongAnalyser: {
             screens: {
-              TabTwoScreen: 'two',
+              SongAnalyser: 'SongAnalyserHome',
+            },
+          },
+          About: {
+            screens: {
+              About: 'AboutHome',
             },
           },
         },
