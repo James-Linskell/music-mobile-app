@@ -4,14 +4,30 @@ import { StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function About() {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>About</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-            <EditScreenInfo path="/screens/SongAnalyser.tsx" />
-        </View>
-    );
+export default class About extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    static navigationOptions = {
+        title: 'About'
+    };
+
+    componentDidMount() {
+        console.log(this.props);
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>About</Text>
+                <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+                <EditScreenInfo path="/screens/SongAnalyser.tsx" />
+            </View>
+        );
+    }
+
+
 }
 
 const styles = StyleSheet.create({

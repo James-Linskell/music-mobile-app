@@ -11,7 +11,7 @@ function SearchIcon(props: { name: string; color: string }) {
 }
 
 export default class PlaylistAnalyser extends React.Component {
-    constructor(props: any) {
+    constructor(props) {
         super(props);
         this.state = {
             search: "",
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 15,
+        marginTop: 15,
     },
     separator: {
         marginVertical: 5,
@@ -93,7 +94,8 @@ const styles = StyleSheet.create({
     input: {
         padding: 15,
         fontSize: 20,
-        marginRight: 10
+        marginRight: 10,
+        width: 250
     },
     searchBox: {
         display: "flex",
