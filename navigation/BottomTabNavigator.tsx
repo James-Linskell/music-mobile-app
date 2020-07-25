@@ -15,43 +15,43 @@ import PlaylistSearch3 from "../screens/PlaylistSearch3";
 const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="PlaylistAnalyser"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, tabStyle: {marginBottom: 7, marginTop: 2} }}>
-      <BottomTab.Screen
-        name="PlaylistAnalyser"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="queue-music" color={color} />,
-            title: "Playlist Analyser",
-        }}
-      />
-      <BottomTab.Screen
-        name="SongAnalyser"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon2 name="music" color={color} />,
-            title: "Song Analyser",
-        }}
-      />
-        <BottomTab.Screen
-            name="About"
-            component={TabThreeNavigator}
-            options={{
-                tabBarIcon: ({ color }) => <TabBarIcon3 name="info-outline" color={color} />,
-            }}
-        />
-    </BottomTab.Navigator>
-  );
+    return (
+        <BottomTab.Navigator
+            initialRouteName="PlaylistAnalyser"
+            tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, tabStyle: {marginBottom: 7, marginTop: 2} }}>
+            <BottomTab.Screen
+                name="PlaylistAnalyser"
+                component={TabOneNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon name="queue-music" color={color} />,
+                    title: "Playlist Analyser",
+                }}
+            />
+            <BottomTab.Screen
+                name="SongAnalyser"
+                component={TabTwoNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon2 name="music" color={color} />,
+                    title: "Song Analyser",
+                }}
+            />
+            <BottomTab.Screen
+                name="About"
+                component={TabThreeNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon3 name="info-outline" color={color} />,
+                }}
+            />
+        </BottomTab.Navigator>
+    );
 }
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: string; color: string }) {
-  return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 function TabBarIcon2(props: { name: string; color: string }) {
     return <Foundation size={30} style={{marginBottom: -3}} {...props} />;
@@ -65,44 +65,44 @@ function TabBarIcon3(props: { name: string; color: string }) {
 const TabOneStack = createStackNavigator();
 
 function TabOneNavigator() {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="PlaylistAnalyserHome"
-        component={PlaylistAnalyser}
-        options={{ headerTitle: 'Playlist Analyser' }}
-      />
-        <TabOneStack.Screen
-            name="PlaylistSearch1"
-            component={PlaylistSearch1}
-            options={{ headerTitle: 'Playlist Analyser' }}
-        />
-        <TabOneStack.Screen
-            name="PlaylistSearch2"
-            component={PlaylistSearch2}
-            options={{ headerTitle: 'Playlist Analyser' }}
-        />
-        <TabOneStack.Screen
-            name="PlaylistSearch3"
-            component={PlaylistSearch3}
-            options={{ headerTitle: 'Playlist Analyser' }}
-        />
-    </TabOneStack.Navigator>
-  );
+    return (
+        <TabOneStack.Navigator>
+            <TabOneStack.Screen
+                name="PlaylistAnalyserHome"
+                component={PlaylistAnalyser}
+                options={{ headerTitle: 'Playlist Analyser' }}
+            />
+            <TabOneStack.Screen
+                name="PlaylistSearch1"
+                component={PlaylistSearch1}
+                options={{ headerTitle: 'Playlist Analyser' }}
+            />
+            <TabOneStack.Screen
+                name="PlaylistSearch2"
+                component={PlaylistSearch2}
+                options={{ headerTitle: 'Playlist Analyser' }}
+            />
+            <TabOneStack.Screen
+                name="PlaylistSearch3"
+                component={PlaylistSearch3}
+                options={{ headerTitle: 'Playlist Analyser' }}
+            />
+        </TabOneStack.Navigator>
+    );
 }
 
 const TabTwoStack = createStackNavigator();
 
 function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="SongAnalyserHome"
-        component={SongAnalyser}
-        options={{ headerTitle: 'Song Analyser' }}
-      />
-    </TabTwoStack.Navigator>
-  );
+    return (
+        <TabTwoStack.Navigator>
+            <TabTwoStack.Screen
+                name="SongAnalyserHome"
+                component={SongAnalyser}
+                options={{ headerTitle: 'Song Analyser' }}
+            />
+        </TabTwoStack.Navigator>
+    );
 }
 
 const TabThreeStack = createStackNavigator();

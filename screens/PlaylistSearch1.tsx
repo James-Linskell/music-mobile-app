@@ -4,14 +4,16 @@ import FetchData from "../helpers/FetchData"
 import GenerateInfo from "../helpers/GenerateInfo"
 import {ScrollView, StyleSheet} from "react-native";
 import SongCard from "../components/SongCard";
+import { StackActions } from '@react-navigation/native';
 
 export default class PlaylistSearch1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             prompt: "",
-            songListRaw: "",
+            search: ""
         }
+        console.log("CONSTRUCTED");
     }
 
     static navigationOptions = {
@@ -19,12 +21,12 @@ export default class PlaylistSearch1 extends React.Component {
         };
 
     componentDidMount() {
+        console.log("MOUNTED");
         console.log(this.props.route.params.textInput);
         this.waitForFetch();
     }
 
     onButtonPress = (name, album, artist, art) => {
-        console.log(this.props);
         this.props.navigation.navigate('PlaylistSearch2', {
             songInfo: {
                 name: name,
@@ -53,22 +55,14 @@ export default class PlaylistSearch1 extends React.Component {
                 prompt: null
             });
         }
-
-        console.log(data);
-
-        this.setState({songListRaw: data})
         // Error handling if no search results are returned:
         if (data.tracks.items.length === 0) {
             this.setState({
                 prompt: "No results found!",
-                results: <div className="Margin" ></div>
             });
             return;
         }
-        const songs = GenerateInfo.generateSongInfo(this.state.songListRaw.tracks.items);
-        this.setState({simplifiedSongList: songs});
-
-        console.log(this.state.simplifiedSongList);
+        const songs = GenerateInfo.generateSongInfo(data.tracks.items);
 
         var grid = [];
 

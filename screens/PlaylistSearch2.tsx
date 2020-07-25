@@ -5,6 +5,7 @@ import GenerateInfo from "../helpers/GenerateInfo"
 import {Button, ScrollView, StyleSheet} from "react-native";
 import SongCard from "../components/SongCard";
 import EditScreenInfo from "../components/EditScreenInfo";
+import {StackActions} from "@react-navigation/native";
 
 export default class PlaylistSearch2 extends React.Component {
     constructor(props) {
@@ -47,24 +48,26 @@ export default class PlaylistSearch2 extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.separator}/>
-                <View style={styles.chosenSong}>
-                    {this.state.chosenCard}
-                </View>
+                <ScrollView>
+                    <View style={styles.separator}/>
+                    <View>
+                        {this.state.chosenCard}
+                    </View>
 
-                <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-                <View style={styles.searchContainer}>
-                    <Text>
-                        Search for a playlist to compare your chosen song:
-                    </Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Search for a playlist..."
-                        onChangeText={this.onSearchChange}
-                        value={this.state.search}
-                    />
-                    <Button title="Search" onPress={this.onButtonPress}/>
-                </View>
+                    <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+                    <View style={styles.searchContainer}>
+                        <Text>
+                            Search for a playlist to compare your chosen song:
+                        </Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Search for a playlist..."
+                            onChangeText={this.onSearchChange}
+                            value={this.state.search}
+                        />
+                        <Button title="Search" onPress={this.onButtonPress}/>
+                    </View>
+                </ScrollView>
             </View>
         );
     }

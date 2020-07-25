@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, KeyboardAvoidingView, StyleSheet} from 'react-native';
+import {Button, KeyboardAvoidingView, ScrollView, StyleSheet} from 'react-native';
 
 import Colors from "../constants/Colors";
 import { Text, View, TextInput } from '../components/Themed';
@@ -36,25 +36,27 @@ export default class PlaylistAnalyser extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.searchBox}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Search for a song..."
-                        onChangeText={this.onSearchChange}
-                        value={this.state.search}
-                    />
-                    <Button title="Search" onPress={this.onButtonPress}/>
-                </View>
-                <Text style={styles.title}>Playlist Analyser</Text>
-                <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
-                <Text
-                    style={styles.mainText}>
-                    The Playlist Analyser calculates how well your song fits in a chosen playlist, and shows you a detailed
-                    breakdown of the results. Search for a song to get started!
-                </Text>
-                <Text style={styles.footer}>
-                    Note: song and playlist must be on Spotify.
-                </Text>
+                <ScrollView>
+                    <View style={styles.searchBox}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Search for a song..."
+                            onChangeText={this.onSearchChange}
+                            value={this.state.search}
+                        />
+                        <Button title="Search" onPress={this.onButtonPress}/>
+                    </View>
+                    <Text style={styles.title}>Playlist Analyser</Text>
+                    <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
+                    <Text
+                        style={styles.mainText}>
+                        The Playlist Analyser calculates how well your song fits in a chosen playlist, and shows you a detailed
+                        breakdown of the results. Search for a song to get started!
+                    </Text>
+                    <Text style={styles.footer}>
+                        Note: song and playlist must be on Spotify.
+                    </Text>
+                </ScrollView>
             </View>
         );
     }
@@ -72,10 +74,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 15,
         marginTop: 15,
+        textAlign: "center"
     },
     separator: {
         marginVertical: 5,
         height: 1,
+        alignSelf: "center",
         width: '80%',
     },
     mainText: {
@@ -87,18 +91,20 @@ const styles = StyleSheet.create({
     footer: {
         fontSize: 17,
         lineHeight: 26,
+        flex: 0,
         textAlign: "center",
-        position: "absolute",
-        bottom: 15
     },
     input: {
         padding: 15,
         fontSize: 20,
         marginRight: 10,
+        marginTop: 10,
+        marginBottom: 30,
         width: 250
     },
     searchBox: {
         display: "flex",
         flexDirection: "row",
+        margin: 15
     },
 });
