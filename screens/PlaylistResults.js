@@ -8,6 +8,13 @@ import SongFitter from "../helpers/SongFitter";
 export default class PlaylistResults extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            charts: {
+                danceHist: null,
+                energyHist: null,
+                valenceHist: null
+            }
+        }
     }
 
     componentDidMount() {
@@ -33,7 +40,7 @@ export default class PlaylistResults extends React.Component {
         plTracks.items.forEach(track => {
             n++;
             // Limit results to chosen song + 100 songs from playlist:
-            if (n === 100) {
+            if (n === 99 || track.track === null) {
                 return;
             }
             plTrackIds += track.track.id + ','
@@ -61,13 +68,21 @@ export default class PlaylistResults extends React.Component {
             });
         }
 
-        await SongFitter.fitData(featureData);
+        let [charts, fit, scoreChart] = await SongFitter.fitData(featureData);
+        console.log(charts);
+
+        this.setState({
+            charts: charts
+        })
     }
 
     render() {
         return (
             <View>
                 <Text>Hello world</Text>
+                {this.state.charts.danceHist}
+                {this.state.charts.energyHist}
+                {this.state.charts.valenceHist}
             </View>
         );
     }

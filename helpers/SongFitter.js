@@ -5,7 +5,7 @@ import {BarChart} from "react-native-charts";
 export default class SongFitter extends React.Component {
 
     static fitData = async (featureData) => {
-        let fit = await this.simplifyData(featureData);
+        let [charts, fit] = await this.simplifyData(featureData);
         let scores = [];
         let featureInfo1 = [];
         let featureInfo2 = [];
@@ -85,6 +85,8 @@ export default class SongFitter extends React.Component {
                 height: 300,
                 margin: 15,
             }}/>
+
+            return [charts, fit, scoreChart];
     }
 
     static simplifyData = async (data) => {
@@ -232,7 +234,8 @@ export default class SongFitter extends React.Component {
                 });
                 energyIndex = energy.findIndex((val) => {
                     return val >= 0.01;
-                });valenceIndex = valence.findIndex((val) => {
+                });
+                valenceIndex = valence.findIndex((val) => {
                     return val >= 0.01;
                 });
             }
@@ -242,12 +245,6 @@ export default class SongFitter extends React.Component {
             valenceArray.push(track.valence);
             n++;
         });
-
-        if (n < 20) {
-            this.setState({
-                errorVis: "visible"
-            })
-        }
 
         let values = [data.audio_features[0].danceability, data.audio_features[0].energy, data.audio_features[0].valence];
         let means = [danceArray.reduce((a,b) => a+b)/n, energyArray.reduce((a,b) => a+b)/n, valenceArray.reduce((a,b) => a+b)/n];
@@ -276,12 +273,21 @@ export default class SongFitter extends React.Component {
         };
 
         let charts = {
-            danceHist: <Histogram data={dance} songIndex={danceIndex}/>,
-            energyHist: <Histogram data={energy} songIndex={energyIndex}/>,
-            valenceHist: <Histogram data={valence} songIndex={valenceIndex}/>
+            danceHist:
+                <BarChart
+                dataSets={Histogram.generateChart(dance, danceIndex)}
+                graduation={1}
+                horizontal={false}
+                showGrid={true}
+                barSpacing={0}
+                style={{
+                    height: 300,
+                    margin: 15,
+                }}/>,
+
         }
 
         console.log(fit);
-        return fit;
+        return [charts, fit];
     }
 }
