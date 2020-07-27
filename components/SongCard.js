@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, View} from "../components/Themed";
+import {Text, View} from "./Themed";
 import {StyleSheet, TouchableOpacity, Image} from "react-native";
 
 export default class SongCard extends React.Component {
@@ -25,7 +25,7 @@ export default class SongCard extends React.Component {
                         style={styles.img}/>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.text}>{this.props.name}</Text>
+                    <Text style={styles.title}>{this.props.name}</Text>
                     <Text style={styles.text}>{this.props.album}</Text>
                     <Text style={styles.text}>{this.props.artist}</Text>
                 </View>
@@ -51,5 +51,10 @@ const styles = StyleSheet.create({
     text: {
         margin: 3,
         textAlign: "center",
+    },
+    title: {
+        margin: 3,
+        textAlign: "center",
+        fontSize: 19
     }
 })

@@ -23,7 +23,8 @@ export default class PlaylistSearch2 extends React.Component {
 
     onButtonPress = () => {
         this.props.navigation.navigate('PlaylistSearch3', {
-            textInput: this.state.search
+            textInput: this.state.search,
+            songId: this.props.route.params.songInfo.songId
         });
     }
 

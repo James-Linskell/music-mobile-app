@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     searchBox: {
         display: "flex",
         flexDirection: "row",
-        margin: 15
+        margin: 15,
+        justifyContent: "center"
     },
 });

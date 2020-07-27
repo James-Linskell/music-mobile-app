@@ -4,6 +4,10 @@ class GenerateInfo {
 
         data.forEach(playlist => {
                 playlists.push({
+                    name: playlist.name,
+                    description: playlist.description,
+                    owner: playlist.owner.display_name,
+                    art: playlist.images[0].url,
                     playlistId: playlist.id
                 });
             }

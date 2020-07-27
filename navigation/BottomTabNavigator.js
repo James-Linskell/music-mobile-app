@@ -11,6 +11,7 @@ import PlaylistAnalyser from '../screens/PlaylistAnalyser';
 import PlaylistSearch1 from "../screens/PlaylistSearch1";
 import PlaylistSearch2 from "../screens/PlaylistSearch2";
 import PlaylistSearch3 from "../screens/PlaylistSearch3";
+import PlaylistResults from "../screens/PlaylistResults";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -85,6 +86,11 @@ function TabOneNavigator() {
             <TabOneStack.Screen
                 name="PlaylistSearch3"
                 component={PlaylistSearch3}
+                options={{ headerTitle: 'Playlist Analyser' }}
+            />
+            <TabOneStack.Screen
+                name="PlaylistResults"
+                component={PlaylistResults}
                 options={{ headerTitle: 'Playlist Analyser' }}
             />
         </TabOneStack.Navigator>

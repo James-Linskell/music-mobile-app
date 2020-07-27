@@ -6,7 +6,7 @@ import useColorScheme from '../hooks/useColorScheme';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
+  colorName: Colors.light & Colors.dark
 ) {
   const theme = useColorScheme();
   const colorFromProps = props[theme];
@@ -23,9 +23,9 @@ type ThemeProps = {
   darkColor?: string;
 };
 
-export type TextProps = ThemeProps & DefaultText['props'];
-export type ViewProps = ThemeProps & DefaultView['props'];
-export type TextInputProps = ThemeProps & DefaultTextInput['props'];
+export type TextProps = ThemeProps & DefaultText;
+export type ViewProps = ThemeProps & DefaultView;
+export type TextInputProps = ThemeProps & DefaultTextInput;
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;

@@ -22,7 +22,7 @@ export default class About extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.title}>About</Text>
                 <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-                <EditScreenInfo path="/screens/SongAnalyser.tsx" />
+                <EditScreenInfo path="/screens/SongAnalyser.js" />
             </View>
         );
     }

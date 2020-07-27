@@ -13,7 +13,6 @@ export default class PlaylistSearch1 extends React.Component {
             prompt: "",
             search: ""
         }
-        console.log("CONSTRUCTED");
     }
 
     static navigationOptions = {
@@ -21,18 +20,18 @@ export default class PlaylistSearch1 extends React.Component {
         };
 
     componentDidMount() {
-        console.log("MOUNTED");
         console.log(this.props.route.params.textInput);
         this.waitForFetch();
     }
 
-    onButtonPress = (name, album, artist, art) => {
+    onButtonPress = (name, album, artist, art, id) => {
         this.props.navigation.navigate('PlaylistSearch2', {
             songInfo: {
                 name: name,
                 album: album,
                 artist: artist,
-                art: art
+                art: art,
+                songId: id
             }
         });
     }
@@ -82,7 +81,7 @@ export default class PlaylistSearch1 extends React.Component {
                 artist = songs[i].artist.substring(0, 45) + '...'
             }
             grid.push(<SongCard
-                onPress={this.onButtonPress.bind(this, name, album, artist, songs[i].art)}
+                onPress={this.onButtonPress.bind(this, name, album, artist, songs[i].art, songs[i].songId)}
                 name={name}
                 album={album}
                 artist={artist}
