@@ -27,7 +27,7 @@ export default class PlaylistAnalyser extends React.Component {
     };
 
     onButtonPress = () => {
-        this.props.navigation.navigate('PlaylistSearch1', {
+        this.props.navigation.navigate('SearchSong', {
             textInput: this.state.search,
             chain: "playlist"
         });

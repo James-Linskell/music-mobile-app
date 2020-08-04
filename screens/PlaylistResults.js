@@ -18,6 +18,10 @@ export default class PlaylistResults extends React.Component {
                 featureInfo1: [],
                 featureInfo2: [],
                 featureInfoColour: [],
+            },
+            fit: {
+                stDevs: [0, 0, 0],
+                sigmas: [0, 0, 0]
             }
         }
     }
@@ -102,10 +106,47 @@ export default class PlaylistResults extends React.Component {
                     {this.state.charts.valenceHist}
                     <View style={styles.grid}>
                         <View>
-                            <Text style={styles.text}>Valence:</Text>
+                            <Text style={styles.text}>Positivity:</Text>
                             <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[2]}]}>{this.state.featureInfo.featureInfo1[2]}</Text>
                             <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[2]}</Text>
                         </View>
+                    </View>
+                    <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
+                    <View id="Detail">
+                        <Text style={styles.head}>Mood features explained:</Text>
+                        <Text style={styles.description}>All mood feature data is taken from Spotify, who use algorithms to calculate the numbers shown.</Text>
+                        <Text style={styles.head}>Energy:</Text>
+                        <Text style={styles.description}>
+                            The 'Energy' of a song determines how energetic the song feels, and is a measure of intensity and musical activity, with energetic
+                            tracks feeling fast, busy and noisy. Energy is calculated by taking into account the dynamic range,
+                            the loudness, the timbre, and the onset rate (rate of notes played). Energy is determined on a scale of 0 - 10,
+                            with 10 being the most energetic.
+                        </Text>
+                        <Text style={styles.description}>
+                            The standard deviation of Energy values for the songs in this playlist is {this.state.fit.stDevs[1].toFixed(3)}.
+                            The Energy of your song falls within {this.state.fit.sigmas[1]} σ (sigma) of the distribution.
+                        </Text>
+                        <Text style={styles.head}>Danceability:</Text>
+                        <Text style={styles.description}>
+                            The 'Danceability' of a song describes how good a track is to dance to. This takes into account
+                            a number of musical elements including tempo, how stable the rhythm is, the strength of each beat,
+                            and how regular the musical pattern is. Dancibility is determined on a scale of 0 - 10, with 10 being
+                            the most danceable.
+                        </Text>
+                        <Text style={styles.description}>
+                            The standard deviation of Danceability values for the songs in this playlist is {this.state.fit.stDevs[0].toFixed(3)}.
+                            The danceability of your song falls within {this.state.fit.sigmas[0]} σ (sigma) of the distribution.
+                        </Text>
+                        <Text style={styles.head}>Positivity:</Text>
+                        <Text style={styles.description}>
+                            The happiness or 'Valence' of a song is how positive it sounds. Tracks with high valence sound more positive
+                            (happy, cheerful, euphoric) while tracks with low valence sound more negative (sad, depressed, angry).
+                            Happiness is determined on a scale of 0 - 10, with 10 being the most positive sounding.
+                        </Text>
+                        <Text style={styles.description}>
+                            The standard deviation of Positivity values for the songs in this playlist is {this.state.fit.stDevs[2].toFixed(3)}.
+                            The Positivity of your song falls within {this.state.fit.sigmas[2]} σ (sigma) of the distribution.
+                        </Text>
                     </View>
                 </ScrollView>
             </View>
@@ -129,5 +170,19 @@ const styles = StyleSheet.create({
         textAlign: "center",
         justifyContent: "center",
         fontSize: 16
-    }
+    },
+    description: {
+        fontSize: 16,
+        padding: 5,
+        marginLeft: 10
+    },
+    head: {
+        margin: 10,
+        fontSize: 18,
+    },
+    separator: {
+        marginVertical: 10,
+        height: 1,
+        width: '100%',
+    },
 })

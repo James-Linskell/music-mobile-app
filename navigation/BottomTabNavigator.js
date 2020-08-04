@@ -8,10 +8,11 @@ import useColorScheme from '../hooks/useColorScheme';
 import SongAnalyser from '../screens/SongAnalyser';
 import About from '../screens/About';
 import PlaylistAnalyser from '../screens/PlaylistAnalyser';
-import PlaylistSearch1 from "../screens/PlaylistSearch1";
-import PlaylistSearch2 from "../screens/PlaylistSearch2";
-import PlaylistSearch3 from "../screens/PlaylistSearch3";
+import SearchSong from "../screens/SearchSong";
+import SearchPlaylist from "../screens/SearchPlaylist";
+import SearchPlaylistResults from "../screens/SearchPlaylistResults";
 import PlaylistResults from "../screens/PlaylistResults";
+import SongResults from "../screens/SongResults";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -74,18 +75,18 @@ function TabOneNavigator() {
                 options={{ headerTitle: 'Playlist Analyser' }}
             />
             <TabOneStack.Screen
-                name="PlaylistSearch1"
-                component={PlaylistSearch1}
+                name="SearchSong"
+                component={SearchSong}
                 options={{ headerTitle: 'Playlist Analyser' }}
             />
             <TabOneStack.Screen
-                name="PlaylistSearch2"
-                component={PlaylistSearch2}
+                name="SearchPlaylist"
+                component={SearchPlaylist}
                 options={{ headerTitle: 'Playlist Analyser' }}
             />
             <TabOneStack.Screen
-                name="PlaylistSearch3"
-                component={PlaylistSearch3}
+                name="SearchPlaylistResults"
+                component={SearchPlaylistResults}
                 options={{ headerTitle: 'Playlist Analyser' }}
             />
             <TabOneStack.Screen
@@ -105,6 +106,16 @@ function TabTwoNavigator() {
             <TabTwoStack.Screen
                 name="SongAnalyserHome"
                 component={SongAnalyser}
+                options={{ headerTitle: 'Song Analyser' }}
+            />
+            <TabTwoStack.Screen
+                name="SearchSong"
+                component={SearchSong}
+                options={{ headerTitle: 'Song Analyser' }}
+            />
+            <TabTwoStack.Screen
+                name="SongResults"
+                component={SongResults}
                 options={{ headerTitle: 'Song Analyser' }}
             />
         </TabTwoStack.Navigator>

@@ -7,7 +7,7 @@ import SongCard from "../components/SongCard";
 import EditScreenInfo from "../components/EditScreenInfo";
 import {StackActions} from "@react-navigation/native";
 
-export default class PlaylistSearch2 extends React.Component {
+export default class SearchPlaylist extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,11 +18,11 @@ export default class PlaylistSearch2 extends React.Component {
     }
 
     static navigationOptions = {
-        title: 'PlaylistSearch2'
+        title: 'SearchPlaylist'
     };
 
     onButtonPress = () => {
-        this.props.navigation.navigate('PlaylistSearch3', {
+        this.props.navigation.navigate('SearchPlaylistResults', {
             textInput: this.state.search,
             songId: this.props.route.params.songInfo.songId
         });

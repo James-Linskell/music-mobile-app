@@ -6,7 +6,7 @@ import {ScrollView, StyleSheet} from "react-native";
 import SongCard from "../components/SongCard";
 import { StackActions } from '@react-navigation/native';
 
-export default class PlaylistSearch1 extends React.Component {
+export default class SearchSong extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,7 @@ export default class PlaylistSearch1 extends React.Component {
     }
 
     static navigationOptions = {
-            title: 'PlaylistSearch1'
+            title: 'SearchSong'
         };
 
     componentDidMount() {
@@ -26,7 +26,17 @@ export default class PlaylistSearch1 extends React.Component {
 
     onButtonPress = (name, album, artist, art, id) => {
         if (this.props.route.params.chain === "playlist") {
-            this.props.navigation.navigate('PlaylistSearch2', {
+            this.props.navigation.navigate('SearchPlaylist', {
+                songInfo: {
+                    name: name,
+                    album: album,
+                    artist: artist,
+                    art: art,
+                    songId: id
+                }
+            });
+        } else if (this.props.route.params.chain === "song") {
+            this.props.navigation.navigate('SongResults', {
                 songInfo: {
                     name: name,
                     album: album,

@@ -1,17 +1,58 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import {Button, ScrollView, StyleSheet} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import {Text, TextInput, View} from '../components/Themed';
 
-export default function SongAnalyser() {
-  return (
-    <View style={styles.container} lightColor="rgba(255, 255, 255, 1)" darkColor="rgba(255,255,255,0)">
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="rgba(0, 0, 0, 0.1)" darkColor="rgba(255,255,255,0.5)" />
-      <EditScreenInfo path="/screens/SongAnalyser.tsx" />
-    </View>
-  );
+export default class SongAnalyser extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: "",
+    }
+  }
+
+  static navigationOptions = {
+    title: 'PlaylistAnalyser'
+  };
+
+  onSearchChange = (search: any) => {
+    this.setState({ search });
+  };
+
+  onButtonPress = () => {
+    this.props.navigation.navigate('SearchSong', {
+      textInput: this.state.search,
+      chain: "song"
+    });
+  }
+
+  render() {
+    return (
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={styles.searchBox}>
+              <TextInput
+                  style={styles.input}
+                  placeholder="Search for a song..."
+                  onChangeText={this.onSearchChange}
+                  value={this.state.search}
+              />
+              <Button title="Search" onPress={this.onButtonPress}/>
+            </View>
+            <Text style={styles.title}>Song Analyser</Text>
+            <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
+            <Text
+                style={styles.mainText}>
+              The Playlist Analyser calculates how well your song fits in a chosen playlist, and shows you a detailed
+              breakdown of the results. Search for a song to get started!
+            </Text>
+            <Text style={styles.footer}>
+              Note: song and playlist must be on Spotify.
+            </Text>
+          </ScrollView>
+        </View>
+    )}
 }
 
 const styles = StyleSheet.create({
@@ -23,10 +64,41 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 15,
+    marginTop: 15,
+    textAlign: "center"
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 5,
     height: 1,
+    alignSelf: "center",
     width: '80%',
+  },
+  mainText: {
+    fontSize: 20,
+    lineHeight: 32,
+    textAlign: 'center',
+    margin: 20,
+  },
+  footer: {
+    fontSize: 17,
+    lineHeight: 26,
+    flex: 0,
+    textAlign: "center",
+  },
+  input: {
+    padding: 15,
+    fontSize: 20,
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 30,
+    width: 250,
+    backgroundColor: "white",
+  },
+  searchBox: {
+    display: "flex",
+    flexDirection: "row",
+    margin: 15,
+    justifyContent: "center",
   },
 });

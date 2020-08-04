@@ -5,7 +5,7 @@ import GenerateInfo from "../helpers/GenerateInfo";
 import FetchData from "../helpers/FetchData";
 import {ScrollView, StyleSheet} from "react-native";
 
-export default class PlaylistSearch3 extends React.Component {
+export default class SearchPlaylistResults extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
