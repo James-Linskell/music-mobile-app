@@ -249,6 +249,5 @@ const styles = StyleSheet.create({
     },
     box: {
         padding: 20,
-        border: "red"
     }
 })
