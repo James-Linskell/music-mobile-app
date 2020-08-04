@@ -24,35 +24,27 @@ export default class SongFitter extends React.Component {
             if (fit.sigmas[i] === 1 && fit.stDevs[i] <= 0.15) {
                 scores[i] = 4;
                 featureInfo1[i] = "Perfect fit!"
-                featureInfo2[i] = `The ${feat} of your chosen song fits the chosen playlist perfectly! The playlist songs
-                all have very a similiar ${feat}, and your chosen song sits right in the middle of the distribution.`;
+                featureInfo2[i] = `The ${feat} of your chosen song fits the chosen playlist perfectly! The playlist songs all have very a similiar ${feat}, and your chosen song sits right in the middle of the distribution.`;
                 featureInfoColour[i] = "#1E9600";
             } else if (fit.sigmas[i] === 1 && fit.stDevs[i] > 0.15) {
                 scores[i] = 3;
                 featureInfo1[i] = "Great fit!"
-                featureInfo2[i] = `The ${feat} of your chosen song fits the chosen playlist very well. The playlist songs
-                don't follow a close pattern for ${feat}, and the values vary a lot. This means ${feat} isn't so important
-                for this playlist, but your song still fits well!`;
+                featureInfo2[i] = `The ${feat} of your chosen song fits the chosen playlist very well. The playlist songs don't follow a close pattern for ${feat}, and the values vary a lot. This means ${feat} isn't so important for this playlist, but your song still fits well!`;
                 featureInfoColour[i] = "#77b300";
             } else if ((fit.sigmas[i] === 2 || fit.sigmas[i] === 3) && fit.stDevs[i] > 0.15) {
                 scores[i] = 2;
                 featureInfo1[i] = "Average fit"
-                featureInfo2[i] = `The ${feat} of your chosen song isn't a great fit. The playlist songs don't
-                follow a close pattern for ${feat} however, so ${feat} isn't that important for this playlist. There is a lot of
-                variation, so your song could potentially still fit here!`;
+                featureInfo2[i] = `The ${feat} of your chosen song isn't a great fit. The playlist songs don't follow a close pattern for ${feat} however, so ${feat} isn't that important for this playlist. There is a lot of variation, so your song could potentially still fit here!`;
                 featureInfoColour[i] = "#ffcc00";
             } else if (fit.sigmas[i] === 2 && fit.stDevs[i] <= 0.15) {
                 scores[i] = 1;
                 featureInfo1[i] = "Poor fit";
-                featureInfo2[i] = `The ${feat} of your chosen song doesn't fit the chosen playlist well. The ${feat} of the songs on this
-                playlist follow a very tight pattern, and your song's ${feat} doesn't follow this pattern. This is a sign
-                that your song may not be right for this playlist.`;
+                featureInfo2[i] = `The ${feat} of your chosen song doesn't fit the chosen playlist well. The ${feat} of the songs on this playlist follow a very tight pattern, and your song's ${feat} doesn't follow this pattern. This is a sign that your song may not be right for this playlist.`;
                 featureInfoColour[i] = "#cc2900";
             } else {
                 scores[i] = 0;
                 featureInfo1[i] = "Terrible fit";
-                featureInfo2[i] = `The ${feat} of your chosen song does not fit the playlist well. It falls very far outside
-                the distribution. This is a sign that your song probably isn't right for this playlist.`;
+                featureInfo2[i] = `The ${feat} of your chosen song does not fit the playlist well. It falls very far outside the distribution. This is a sign that your song probably isn't right for this playlist.`;
                 featureInfoColour[i] = "#e60000";
             }
         }
@@ -86,7 +78,7 @@ export default class SongFitter extends React.Component {
                 margin: 15,
             }}/>
 
-            return [charts, fit, scoreChart];
+            return [charts, fit, featureInfo];
     }
 
     static simplifyData = async (data) => {
@@ -272,19 +264,41 @@ export default class SongFitter extends React.Component {
             sigmas
         };
 
+        // https://www.syncfusion.com/react-ui-components/react-charts/chart-types/column-chart
         let charts = {
             danceHist:
                 <BarChart
                 dataSets={Histogram.generateChart(dance, danceIndex)}
                 graduation={1}
                 horizontal={false}
-                showGrid={true}
+                showGrid={false}
                 barSpacing={0}
                 style={{
-                    height: 300,
-                    margin: 15,
+                    height: 200,
+                    margin: 40,
                 }}/>,
-
+            energyHist:
+                <BarChart
+                    dataSets={Histogram.generateChart(energy, energyIndex)}
+                    graduation={1}
+                    horizontal={false}
+                    showGrid={false}
+                    barSpacing={0}
+                    style={{
+                        height: 200,
+                        margin: 40,
+                    }}/>,
+            valenceHist:
+                <BarChart
+                    dataSets={Histogram.generateChart(valence, valenceIndex)}
+                    graduation={1}
+                    horizontal={false}
+                    showGrid={false}
+                    barSpacing={0}
+                    style={{
+                        height: 200,
+                        margin: 40,
+                    }}/>,
         }
 
         console.log(fit);

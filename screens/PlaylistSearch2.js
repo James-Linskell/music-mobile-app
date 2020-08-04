@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
     input: {
         padding: 15,
         fontSize: 20,
-        marginRight: 10
+        marginRight: 10,
+        backgroundColor: "white",
     },
     searchContainer: {
         flex: 1

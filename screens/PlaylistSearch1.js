@@ -25,15 +25,17 @@ export default class PlaylistSearch1 extends React.Component {
     }
 
     onButtonPress = (name, album, artist, art, id) => {
-        this.props.navigation.navigate('PlaylistSearch2', {
-            songInfo: {
-                name: name,
-                album: album,
-                artist: artist,
-                art: art,
-                songId: id
-            }
-        });
+        if (this.props.route.params.chain === "playlist") {
+            this.props.navigation.navigate('PlaylistSearch2', {
+                songInfo: {
+                    name: name,
+                    album: album,
+                    artist: artist,
+                    art: art,
+                    songId: id
+                }
+            });
+        }
     }
 
     waitForFetch = async () => {

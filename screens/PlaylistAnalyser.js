@@ -28,7 +28,8 @@ export default class PlaylistAnalyser extends React.Component {
 
     onButtonPress = () => {
         this.props.navigation.navigate('PlaylistSearch1', {
-            textInput: this.state.search
+            textInput: this.state.search,
+            chain: "playlist"
         });
     }
 
@@ -100,12 +101,13 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginTop: 10,
         marginBottom: 30,
-        width: 250
+        width: 250,
+        backgroundColor: "white",
     },
     searchBox: {
         display: "flex",
         flexDirection: "row",
         margin: 15,
-        justifyContent: "center"
+        justifyContent: "center",
     },
 });
