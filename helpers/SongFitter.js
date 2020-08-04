@@ -264,7 +264,7 @@ export default class SongFitter extends React.Component {
             sigmas
         };
 
-        // https://www.syncfusion.com/react-ui-components/react-charts/chart-types/column-chart
+        // VICTORY CHARTS: https://formidable.com/open-source/victory/docs/victory-bar
         let charts = {
             danceHist:
                 <BarChart
