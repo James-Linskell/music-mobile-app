@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Text, View} from "../components/Themed";
 import {Dimensions, ScrollView, StyleSheet} from "react-native";
-import { BarChart } from 'react-native-charts';
 import FetchData from "../helpers/FetchData";
 import SongFitter from "../helpers/SongFitter";
 
@@ -75,7 +74,7 @@ export default class PlaylistResults extends React.Component {
             });
         }
 
-        let [charts, fit, featureInfo] = await SongFitter.fitData(featureData);
+        let [charts, fit, featureInfo] = SongFitter.fitData(featureData);
 
         this.setState({
             charts: charts,

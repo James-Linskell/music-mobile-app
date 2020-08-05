@@ -1,10 +1,8 @@
 import * as React from 'react';
 import {Button, KeyboardAvoidingView, ScrollView, StyleSheet} from 'react-native';
 
-import Colors from "../constants/Colors";
 import { Text, View, TextInput } from '../components/Themed';
 import {MaterialIcons} from "@expo/vector-icons";
-import Navigation from "../navigation";
 
 function SearchIcon(props: { name: string; color: string }) {
     return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;

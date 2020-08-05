@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Text, View, ScrollView} from "../components/Themed";
 import {Dimensions, StyleSheet, TextComponent} from "react-native";
-import { BarChart } from 'react-native-charts';
 import FetchData from "../helpers/FetchData";
 import SongFitter from "../helpers/SongFitter";
 

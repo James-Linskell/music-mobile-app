@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Histogram from "../components/Histogram";
-import {BarChart} from "react-native-charts";
+import Victory from "../components/Victory";
 
 export default class SongFitter extends React.Component {
 
-    static fitData = async (featureData) => {
-        let [charts, fit] = await this.simplifyData(featureData);
+    static fitData(featureData) {
+        let [charts, fit] = this.simplifyData(featureData);
         let scores = [];
         let featureInfo1 = [];
         let featureInfo2 = [];
@@ -67,21 +66,10 @@ export default class SongFitter extends React.Component {
             },
         ]
 
-        let scoreChart = <BarChart
-            dataSets={scoreDataset}
-            graduation={1}
-            horizontal={false}
-            showGrid={true}
-            barSpacing={0}
-            style={{
-                height: 300,
-                margin: 15,
-            }}/>
-
-            return [charts, fit, featureInfo];
+        return [charts, fit, featureInfo];
     }
 
-    static simplifyData = async (data) => {
+    static simplifyData (data) {
         let dance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let energy = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let valence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -221,6 +209,7 @@ export default class SongFitter extends React.Component {
 
             // Find index of comparison song:
             if (n === 0) {
+                console.log(dance);
                 danceIndex = dance.findIndex((val) => {
                     return val >= 0.01;
                 });
@@ -246,11 +235,6 @@ export default class SongFitter extends React.Component {
         let sigmas = [];
 
         for (let i = 0; i < 3; i++) {
-            if (stDevs[i] > 0.15) {
-                console.log("There is a high variance in the data.")
-            }
-
-            console.log("Standard deviation: " + stDevs[i]);
             if ((means[i] - stDevs[i]) <= values[i] && values[i] <= (means[i] + stDevs[i])) {
                 sigmas[i] = 1;
             } else if ((means[i] - (2 * stDevs[i])) <= values[i] && values[i] <= (means[i] + (2 * stDevs[i]))) {
@@ -265,43 +249,15 @@ export default class SongFitter extends React.Component {
         };
 
         // VICTORY CHARTS: https://formidable.com/open-source/victory/docs/victory-bar
+
+        console.log("INDEX: ");
         let charts = {
-            danceHist:
-                <BarChart
-                dataSets={Histogram.generateChart(dance, danceIndex)}
-                graduation={1}
-                horizontal={false}
-                showGrid={false}
-                barSpacing={0}
-                style={{
-                    height: 200,
-                    margin: 40,
-                }}/>,
-            energyHist:
-                <BarChart
-                    dataSets={Histogram.generateChart(energy, energyIndex)}
-                    graduation={1}
-                    horizontal={false}
-                    showGrid={false}
-                    barSpacing={0}
-                    style={{
-                        height: 200,
-                        margin: 40,
-                    }}/>,
-            valenceHist:
-                <BarChart
-                    dataSets={Histogram.generateChart(valence, valenceIndex)}
-                    graduation={1}
-                    horizontal={false}
-                    showGrid={false}
-                    barSpacing={0}
-                    style={{
-                        height: 200,
-                        margin: 40,
-                    }}/>,
+            danceHist: <Victory data={dance} index={danceIndex}/>,
+            energyHist: <Victory data={energy} index={energyIndex}/>,
+            valenceHist: <Victory data={valence} index={valenceIndex}/>,
         }
 
-        console.log(fit);
+
         return [charts, fit];
     }
 }
