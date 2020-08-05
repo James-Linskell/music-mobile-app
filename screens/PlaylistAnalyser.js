@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, KeyboardAvoidingView, ScrollView, StyleSheet} from 'react-native';
+import {Button, KeyboardAvoidingView, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 
 import { Text, View, TextInput } from '../components/Themed';
 import {MaterialIcons} from "@expo/vector-icons";
@@ -42,8 +42,13 @@ export default class PlaylistAnalyser extends React.Component {
                             placeholder="Search for a song..."
                             onChangeText={this.onSearchChange}
                             value={this.state.search}
+                            onSubmitEditing={this.onButtonPress}
                         />
-                        <Button title="Search" onPress={this.onButtonPress}/>
+                        <View style={{height: 40, width: 100, justifyContent: "center"}} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.2)">
+                            <TouchableOpacity  onPress={this.onButtonPress}>
+                                <Text style={styles.searchButton}>Search</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <Text style={styles.title}>Playlist Analyser</Text>
                     <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
@@ -94,18 +99,22 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     input: {
-        padding: 15,
+        paddingLeft: 10,
         fontSize: 20,
         marginRight: 10,
-        marginTop: 10,
-        marginBottom: 30,
-        width: 250,
         backgroundColor: "white",
+        borderColor: "black",
+        borderWidth: 0.5
     },
     searchBox: {
         display: "flex",
         flexDirection: "row",
-        margin: 15,
+        margin: 20,
         justifyContent: "center",
+        marginTop: 100
     },
+    searchButton: {
+        textAlign: "center",
+        fontSize: 20
+    }
 });

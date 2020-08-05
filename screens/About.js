@@ -13,10 +13,6 @@ export default class About extends React.Component {
         title: 'About'
     };
 
-    componentDidMount() {
-        console.log(this.props);
-    }
-
     render() {
         return (
             <View style={styles.container}>

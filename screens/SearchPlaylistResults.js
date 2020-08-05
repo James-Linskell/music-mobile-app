@@ -3,13 +3,17 @@ import {Text, View} from "../components/Themed";
 import SongCard from "../components/SongCard";
 import GenerateInfo from "../helpers/GenerateInfo";
 import FetchData from "../helpers/FetchData";
-import {ScrollView, StyleSheet} from "react-native";
+import {ActivityIndicator, ScrollView, StyleSheet} from "react-native";
 
 export default class SearchPlaylistResults extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            results: null
+            results:
+                <View style={styles.loading}>
+                    <Text style={styles.loadingText}>Searching for playlists...</Text>
+                    <ActivityIndicator size="large"/>
+                </View>
         }
     }
 
@@ -47,9 +51,6 @@ export default class SearchPlaylistResults extends React.Component {
 
         var grid = [];
 
-        console.log(playlists);
-        console.log(data.playlists);
-
         for (let i = 0; i < playlists.length; i++) {
             let name = playlists[i].name;
             let description = playlists[i].description;;
@@ -84,19 +85,19 @@ export default class SearchPlaylistResults extends React.Component {
     onButtonPress = (plId) => {
         this.props.navigation.navigate('PlaylistResults', {
             songId: this.props.route.params.songId,
-            plId: plId
+            plId: plId,
+            songInfo: this.props.route.params.songInfo
         });
     }
 
 
     render() {
         return (
-            <View>
+            <View style={{flex: 1}}>
                 <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
                 <ScrollView>
                     {this.state.results}
                 </ScrollView>
-
             </View>
         )
     }
@@ -107,4 +108,16 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         height: 1,
         width: '100%',
-    }})
+    },
+    loading: {
+        marginTop: "50%",
+        marginBottom: "50%",
+        justifyContent: "center"
+    },
+    loadingText: {
+        marginBottom: 20,
+        fontSize: 20,
+        textAlign: "center",
+        justifyContent: "center"
+    }
+})

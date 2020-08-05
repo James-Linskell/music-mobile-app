@@ -2,7 +2,7 @@ import * as React from "react";
 import {Text, TextInput, View} from "../components/Themed";
 import FetchData from "../helpers/FetchData"
 import GenerateInfo from "../helpers/GenerateInfo"
-import {Button, ScrollView, StyleSheet} from "react-native";
+import {Button, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import SongCard from "../components/SongCard";
 import EditScreenInfo from "../components/EditScreenInfo";
 import {StackActions} from "@react-navigation/native";
@@ -24,7 +24,8 @@ export default class SearchPlaylist extends React.Component {
     onButtonPress = () => {
         this.props.navigation.navigate('SearchPlaylistResults', {
             textInput: this.state.search,
-            songId: this.props.route.params.songInfo.songId
+            songId: this.props.route.params.songInfo.songId,
+            songInfo: this.props.route.params.songInfo
         });
     }
 
@@ -33,8 +34,6 @@ export default class SearchPlaylist extends React.Component {
     };
 
     componentDidMount() {
-        console.log(this.props);
-
         let chosenCard = <SongCard
             name={this.props.route.params.songInfo.name}
             album={this.props.route.params.songInfo.album}
@@ -54,19 +53,23 @@ export default class SearchPlaylist extends React.Component {
                     <View>
                         {this.state.chosenCard}
                     </View>
-
                     <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-                    <View style={styles.searchContainer}>
-                        <Text>
-                            Search for a playlist to compare your chosen song:
-                        </Text>
+                    <Text style={{padding: 30, fontSize: 18}}>
+                        Search for a playlist to compare your chosen song:
+                    </Text>
+                    <View style={styles.searchBox}>
                         <TextInput
                             style={styles.input}
                             placeholder="Search for a playlist..."
                             onChangeText={this.onSearchChange}
                             value={this.state.search}
+                            onSubmitEditing={this.onButtonPress}
                         />
-                        <Button title="Search" onPress={this.onButtonPress}/>
+                        <View style={{height: 40, width: 100, justifyContent: "center"}} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.2)">
+                            <TouchableOpacity  onPress={this.onButtonPress}>
+                                <Text style={styles.searchButton}>Search</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </ScrollView>
             </View>
@@ -90,12 +93,22 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     input: {
-        padding: 15,
+        paddingLeft: 10,
         fontSize: 20,
         marginRight: 10,
         backgroundColor: "white",
+        borderColor: "black",
+        borderWidth: 0.5
     },
-    searchContainer: {
-        flex: 1
-    }
+    searchBox: {
+        display: "flex",
+        flexDirection: "row",
+        margin: 20,
+        justifyContent: "center",
+        marginTop: 20,
+    },
+    searchButton: {
+        textAlign: "center",
+        fontSize: 20
+    },
 });

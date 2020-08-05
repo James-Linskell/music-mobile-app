@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, ScrollView, StyleSheet} from 'react-native';
+import {Button, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import {Text, TextInput, View} from '../components/Themed';
@@ -37,18 +37,23 @@ export default class SongAnalyser extends React.Component {
                   placeholder="Search for a song..."
                   onChangeText={this.onSearchChange}
                   value={this.state.search}
+                  onSubmitEditing={this.onButtonPress}
               />
-              <Button title="Search" onPress={this.onButtonPress}/>
+              <View style={{height: 40, width: 100, justifyContent: "center"}} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.2)">
+                <TouchableOpacity  onPress={this.onButtonPress}>
+                  <Text style={styles.searchButton}>Search</Text>
+                </TouchableOpacity>
+              </View>
             </View>
             <Text style={styles.title}>Song Analyser</Text>
             <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
             <Text
                 style={styles.mainText}>
-              The Playlist Analyser calculates how well your song fits in a chosen playlist, and shows you a detailed
-              breakdown of the results. Search for a song to get started!
+              The Song Analyser shows you a detailed
+              breakdown of the musical data and information for a chosen song. Search for a song to get started!
             </Text>
             <Text style={styles.footer}>
-              Note: song and playlist must be on Spotify.
+              Note: song must be on Spotify.
             </Text>
           </ScrollView>
         </View>
@@ -87,18 +92,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    padding: 15,
+    paddingLeft: 10,
     fontSize: 20,
     marginRight: 10,
-    marginTop: 10,
-    marginBottom: 30,
-    width: 250,
     backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 0.5
   },
   searchBox: {
     display: "flex",
     flexDirection: "row",
-    margin: 15,
+    margin: 20,
     justifyContent: "center",
+    marginTop: 100,
   },
+  searchButton: {
+    textAlign: "center",
+    fontSize: 20
+  }
 });

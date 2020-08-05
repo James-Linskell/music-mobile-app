@@ -2,7 +2,7 @@ import * as React from "react";
 import {Text, View} from "../components/Themed";
 import FetchData from "../helpers/FetchData"
 import GenerateInfo from "../helpers/GenerateInfo"
-import {ScrollView, StyleSheet} from "react-native";
+import {ActivityIndicator, ScrollView, StyleSheet} from "react-native";
 import SongCard from "../components/SongCard";
 import { StackActions } from '@react-navigation/native';
 
@@ -11,7 +11,12 @@ export default class SearchSong extends React.Component {
         super(props);
         this.state = {
             prompt: "",
-            search: ""
+            search: "",
+            listGrid:
+                <View style={styles.loading}>
+                    <Text style={styles.loadingText}>Searching for songs...</Text>
+                    <ActivityIndicator size="large"/>
+                </View>
         }
     }
 
@@ -20,7 +25,6 @@ export default class SearchSong extends React.Component {
         };
 
     componentDidMount() {
-        console.log(this.props.route.params.textInput);
         this.waitForFetch();
     }
 
@@ -110,7 +114,7 @@ export default class SearchSong extends React.Component {
 
     render() {
         return (
-            <View lightColor="rgba(255,255,255,1)" darkColor="rgba(0, 0, 0, 0.1)">
+            <View lightColor="rgba(255,255,255,1)" darkColor="rgba(0, 0, 0, 0.1)" style={{flex: 1}}>
                 <View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)"/>
                 <ScrollView>
                     {this.state.listGrid}
@@ -130,4 +134,15 @@ const styles = StyleSheet.create({
         height: 1,
         width: '100%',
     },
+    loading: {
+        marginTop: "50%",
+        marginBottom: "50%",
+        justifyContent: "center"
+    },
+    loadingText: {
+        marginBottom: 20,
+        fontSize: 20,
+        textAlign: "center",
+        justifyContent: "center"
+    }
 });

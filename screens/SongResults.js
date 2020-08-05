@@ -1,14 +1,20 @@
 import * as React from "react";
 import {Text, View, ScrollView} from "../components/Themed";
-import {Dimensions, StyleSheet, TextComponent} from "react-native";
+import {ActivityIndicator, Dimensions, StyleSheet, TextComponent} from "react-native";
 import FetchData from "../helpers/FetchData";
-import SongFitter from "../helpers/SongFitter";
+import FeatureChart from "../components/FeatureChart";
+import SongCard from "../components/SongCard";
 
 export default class PlaylistResults extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             rawFeatures: [],
+            featureChart:
+                <View style={styles.loading}>
+                    <Text style={styles.loadingText}>Analysing playlist...</Text>
+                    <ActivityIndicator size="large"/>
+                </View>,
             rawAnalysis: [],
             rawTrack: {
                 album: {
@@ -58,17 +64,9 @@ export default class PlaylistResults extends React.Component {
             });
             return;
         }
-        console.log(songId);
+
         this.setState({
             rawTrack: data,
-            // embedAlbum: <iframe
-            //     src={"https://open.spotify.com/embed/album/" + data.album.id}
-            //     width="100%"
-            //     height="350"
-            //     frameBorder="0"
-            //     allowTransparency="true"
-            //     allow="encrypted-media"
-            // ></iframe>
         });
         // Fetch my API endpoint for sorting and truncating track data for song card:
         const sortTrackData = await fetch('https://music-web-app-server.herokuapp.com/api/songSort/truncate', {
@@ -80,6 +78,21 @@ export default class PlaylistResults extends React.Component {
             body: JSON.stringify(data)
         });
         let response = await sortTrackData.json();
+
+        let artists = "";
+        this.state.rawTrack.artists.forEach(datum => {
+            artists += datum.name + ", "
+        })
+        // Remove final comma:
+        artists = artists.substring(0, (artists.length) - 2)
+        let explicit = "No";
+        if (this.state.rawTrack.explicit) {
+            explicit = "Yes";
+        }
+        this.setState({
+            artists: artists,
+            explicit: explicit
+        })
     }
 
     /*
@@ -109,8 +122,11 @@ export default class PlaylistResults extends React.Component {
         });
         let response = await sortTrackData.json();
 
+        let featureChart = <FeatureChart data={data}/>
+
         this.setState({
             rawFeatures: data,
+            featureChart: featureChart,
             live: response.live,
             acoustic: response.acoustic,
             instrumental: response.instrumental,
@@ -138,7 +154,6 @@ export default class PlaylistResults extends React.Component {
             });
             return;
         }
-        console.log(data);
         this.setState({
             rawAlbum: data,
         });
@@ -148,13 +163,18 @@ export default class PlaylistResults extends React.Component {
         return (
             <View>
                 <ScrollView>
-                    <View style={styles.info}>
-                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(0, 0, 255, 0.1)">
-                            <View style={styles.embed}>{this.state.embedAlbum}</View>
-                        </View>
+                    <View style={styles.imgContainer} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
+                        <SongCard
+                            name={this.props.route.params.songInfo.name}
+                            album={this.props.route.params.songInfo.album}
+                            artist={this.props.route.params.songInfo.artist}
+                            art={this.props.route.params.songInfo.art}/>
+                    </View>
+                    <View>
+                        {this.state.featureChart}
                     </View>
                     <View style={styles.info}>
-                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
+                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.13)">
                             <Text>Name: {this.state.rawTrack.name}</Text>
                             <Text>Artists: {this.state.artists}</Text>
                             <Text>Explicit lyrics: {this.state.explicit}</Text>
@@ -164,7 +184,7 @@ export default class PlaylistResults extends React.Component {
                         </View>
                     </View>
                     <View style={styles.info}>
-                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
+                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.13)">
                             <Text>Tempo: {Math.round(this.state.rawFeatures.tempo)}</Text>
                             <Text>Time signature: {this.state.rawFeatures.time_signature}/4</Text>
                             <Text>Key: {this.state.key}</Text>
@@ -175,7 +195,7 @@ export default class PlaylistResults extends React.Component {
                         </View>
                     </View>
                     <View style={styles.info}>
-                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
+                        <View style={styles.box} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.13)">
                             <Text style={styles.head}>Mood features explained:</Text>
                             <Text style={styles.description}>All mood feature data is taken from Spotify, who use algorithms to calculate the numbers shown.</Text>
                             <Text style={styles.head}>Energy:</Text>
@@ -248,5 +268,22 @@ const styles = StyleSheet.create({
     },
     box: {
         padding: 20,
-    }
+    },
+    loading: {
+        marginTop: "50%",
+        marginBottom: "50%",
+        justifyContent: "center"
+    },
+    loadingText: {
+        marginBottom: 20,
+        fontSize: 20,
+        textAlign: "center",
+        justifyContent: "center"
+    },
+    imgContainer: {
+        margin: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+    },
 })
