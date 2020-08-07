@@ -1,11 +1,7 @@
 import * as React from "react";
 import {Text, TextInput, View} from "../components/Themed";
-import FetchData from "../helpers/FetchData"
-import GenerateInfo from "../helpers/GenerateInfo"
-import {Button, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import SongCard from "../components/SongCard";
-import EditScreenInfo from "../components/EditScreenInfo";
-import {StackActions} from "@react-navigation/native";
 
 export default class SearchPlaylist extends React.Component {
     constructor(props) {
@@ -22,6 +18,9 @@ export default class SearchPlaylist extends React.Component {
     };
 
     onButtonPress = () => {
+        if (this.state.search === "") {
+            return;
+        }
         this.props.navigation.navigate('SearchPlaylistResults', {
             textInput: this.state.search,
             songId: this.props.route.params.songInfo.songId,

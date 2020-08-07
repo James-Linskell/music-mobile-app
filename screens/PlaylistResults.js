@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Text, View} from "../components/Themed";
-import {ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
+import {ActivityIndicator, Dimensions, ScrollView, StyleSheet } from "react-native";
 import FetchData from "../helpers/FetchData";
 import SongCard from "../components/SongCard";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory-native";

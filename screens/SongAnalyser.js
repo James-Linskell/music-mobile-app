@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {Button, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import {Alert, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, TextInput, View} from '../components/Themed';
+import NetInfo from "@react-native-community/netinfo";
 
 export default class SongAnalyser extends React.Component {
   constructor(props) {
@@ -21,9 +20,18 @@ export default class SongAnalyser extends React.Component {
   };
 
   onButtonPress = () => {
-    this.props.navigation.navigate('SearchSong', {
-      textInput: this.state.search,
-      chain: "song"
+    if (this.state.search === "") {
+      return;
+    }
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        Alert.alert("No Internet Connection", "This app requires an internet connection to function.")
+      } else {
+        this.props.navigation.navigate('SearchSong', {
+          textInput: this.state.search,
+          chain: "song"
+        });
+      }
     });
   }
 

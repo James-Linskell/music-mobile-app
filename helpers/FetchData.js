@@ -1,26 +1,42 @@
+import {Alert} from "react-native";
+
+/**
+ * Helper module which has functions to fetch data from both the Node server and Spotify's API.
+ */
 export default class FetchData {
     /**
-     * Calls Spotify API using token. Takes an input string, a call type string (search, features etc.) and a string
-     * for search type (track, artist, playlist etc) (if applicable).
-     * @returns {Promise<void>}
+     * Calls Spotify API to retrieve track/playlist data.
+     * @param input search string or song/playlist id
+     * @param type string for search type (track/artist/playlist/ etc). Input as empty string if not applicable
+     * @param searchType search/features/track/analysis
+     * @returns Spotify json data
      */
     static fetchData = async (input, type, searchType) => {
         let data = '';
         /**
          * Calls my node server which requests a Spotify client access token.
-         * @returns {Promise<any>} Json body containing Spotify client token and test message
+         * @returns json body containing Spotify client token and test message
          */
         const getToken = async () => {
-            const response = await fetch('https://music-web-app-server.herokuapp.com/authenticate');
-            const body = await response.json();
-
-            if (response.status !== 200) {
-                throw Error(body.message)
-            }
+            const response = await fetch('https://music-web-app-server.herokuapp.com/authenticate').then((response) => {
+                if (!response.ok) {
+                    Alert.alert("Network Error", "There was a problem connecting to the Songmap server.\n\n" + response.status);
+                    throw new Error(response.status);
+                }
+                return response;
+            }).catch((error) => {
+                Alert.alert("Network Error", "There was a problem connecting to the Songmap server.\n\n" + error);
+                throw new Error("HTTP error");
+            });
+            const body = await response.json().catch((error) => {
+                Alert.alert("Network Error", "There was a problem connecting to the Songmap server.\n\n" + error)
+                throw new Error("HTTP error");
+            });
             return body;
         };
         const requestToken = await getToken();
         const token = requestToken.myToken;
+        // Defines authorisation header for Spotify request:
         var myOptions = {
             headers: {
                 Authorization: 'Bearer ' + token,
@@ -40,8 +56,16 @@ export default class FetchData {
             const id = input;
             url = endpoint + ty + id;
         }
-
-        const response = await fetch(url, myOptions)
+        const response = await fetch(url, myOptions).then((response) => {
+            if (!response.ok) {
+                Alert.alert("Network Error", "There was a problem connecting to the Spotify server.\n\n" + response.status);
+                throw new Error("response.status");
+            }
+            return response;
+        }).catch((error) => {
+            Alert.alert("Network Error", "There was a problem connecting to the Spotify server.\n\n" + error);
+            throw new Error("HTTP error");
+        });
         data = await response.json();
         return data;
     }

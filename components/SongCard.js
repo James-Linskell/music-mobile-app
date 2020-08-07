@@ -2,20 +2,14 @@ import * as React from "react";
 import {Text, View} from "./Themed";
 import {StyleSheet, TouchableOpacity, Image} from "react-native";
 
+/**
+ * Creates a custom SongCard component which displays the data for a song and the album artwork in a small container.
+ */
 export default class SongCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            image: null
-        }
-    }
-
-    componentDidMount() {
-        this.setState({
-            image: this.props.art
-        })
-    };
-
+    /**
+     * Renders the SongCard component.
+     * @return <SongCard/>
+     */
     render() {
         return (
             <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
@@ -35,6 +29,7 @@ export default class SongCard extends React.Component {
     }
 }
 
+// Defines styles for SongCard:
 const styles = StyleSheet.create({
     container: {
         flex: 1,
