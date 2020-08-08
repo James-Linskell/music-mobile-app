@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Text, View} from "../components/Themed";
-import {ActivityIndicator, Dimensions, ScrollView, StyleSheet } from "react-native";
+import {ActivityIndicator, Alert, Dimensions, ScrollView, StyleSheet} from "react-native";
 import FetchData from "../helpers/FetchData";
 import SongCard from "../components/SongCard";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory-native";
@@ -42,7 +42,11 @@ export default class PlaylistResults extends React.Component {
         // Fetch search data:
         const plId = this.props.route.params.plId;
         const plTracks = await FetchData.fetchData('', 'analysis', 'playlists/' +
-            plId + '/tracks');
+            plId + '/tracks').catch((error) => {
+            // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+            Alert.alert("Network Error", "" + error);
+            throw new Error(error);
+        });
         let plTrackIds = '';
         let n = 0;
         plTracks.items.forEach(track => {
@@ -57,15 +61,11 @@ export default class PlaylistResults extends React.Component {
         plTrackIds = plTrackIds.substring(0, (plTrackIds.length) - 1);
         // Index 0 is the song being fitted to the playlist:
         const featureData = await FetchData.fetchData(this.props.route.params.songId +
-            ',' + plTrackIds, 'analysis', 'audio-features/?ids=');
-        // Error handling if no search results are returned:
-        if (featureData.length === 0) {
-            this.setState({
-                prompt: "Invalid ID",
-                invalid: true
-            });
-            return;
-        }
+            ',' + plTrackIds, 'analysis', 'audio-features/?ids=').catch((error) => {
+            // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+            Alert.alert("Network Error", "" + error);
+            throw new Error(error);
+        });
 
         // Fetch my API endpoint for sorting and pre-processing the data:
         const sortData = await fetch('http://music-web-app-server.herokuapp.com/api/plSort', {
@@ -75,6 +75,10 @@ export default class PlaylistResults extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(featureData)
+        }).catch((error) => {
+            // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+            Alert.alert("Network Error", "" + error);
+            throw new Error(error);
         });
         // Receive the sorted json data:
         let response = await sortData.json();

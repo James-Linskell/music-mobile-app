@@ -4,7 +4,8 @@ import FetchData from "../helpers/FetchData"
 import GenerateInfo from "../helpers/GenerateInfo"
 import {ActivityIndicator, ScrollView, StyleSheet} from "react-native";
 import SongCard from "../components/SongCard";
-import { StackActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
+import {Alert} from "react-native";
 
 export default class SearchSong extends React.Component {
     constructor(props) {
@@ -60,7 +61,12 @@ export default class SearchSong extends React.Component {
             });
         }, 1000);
         // Fetch search data:
-        const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'track');
+        const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'track').catch((error) => {
+            // If any fetch error occurred (eg. network or json parsing error), throw error, alert user and navigate home:
+            Alert.alert("Network Error", "There was a problem connecting to the server.\n\n" + error);
+            this.props.navigation.dispatch(CommonActions.goBack());
+            throw new Error(error);
+        });
         // Clear all timeouts (as search is complete):
         let id = setTimeout(function () {
         }, 0);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Text, View, ScrollView} from "../components/Themed";
-import {ActivityIndicator, Dimensions, StyleSheet, TextComponent} from "react-native";
+import {ActivityIndicator, Alert, Dimensions, StyleSheet, TextComponent} from "react-native";
 import FetchData from "../helpers/FetchData";
 import FeatureChart from "../components/FeatureChart";
 import SongCard from "../components/SongCard";
@@ -119,6 +119,10 @@ export default class PlaylistResults extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        }).catch((error) => {
+            // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+            Alert.alert("Network Error", "" + error);
+            throw new Error(error);
         });
         let response = await sortTrackData.json();
 
@@ -145,7 +149,11 @@ export default class PlaylistResults extends React.Component {
             return;
         }
         const songId = this.props.route.params.songInfo.songId;
-        const data = await FetchData.fetchData(this.state.rawTrack.album.id, 'analysis', 'albums/');
+        const data = await FetchData.fetchData(this.state.rawTrack.album.id, 'analysis', 'albums/').catch((error) => {
+            // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+            Alert.alert("Network Error", "" + error);
+            throw new Error(error);
+        });
         // Error handling if no search results are returned:
         if (data.length === 0) {
             this.setState({

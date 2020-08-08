@@ -3,7 +3,8 @@ import {Text, View} from "../components/Themed";
 import SongCard from "../components/SongCard";
 import GenerateInfo from "../helpers/GenerateInfo";
 import FetchData from "../helpers/FetchData";
-import {ActivityIndicator, ScrollView, StyleSheet} from "react-native";
+import {ActivityIndicator, Alert, ScrollView, StyleSheet} from "react-native";
+import {CommonActions} from "@react-navigation/native";
 
 export default class SearchPlaylistResults extends React.Component {
     constructor(props) {
@@ -29,7 +30,11 @@ export default class SearchPlaylistResults extends React.Component {
             });
         }, 1000);
         // Fetch search data:
-        const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'playlist');
+        const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'playlist').catch((error) => {
+                // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+                Alert.alert("Network Error", "" + error);
+                throw new Error(error);
+            });
         // Clear all timeouts (as search is complete):
         let id = setTimeout(function () {
         }, 0);

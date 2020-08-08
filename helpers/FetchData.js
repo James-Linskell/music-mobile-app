@@ -20,17 +20,17 @@ export default class FetchData {
         const getToken = async () => {
             const response = await fetch('https://music-web-app-server.herokuapp.com/authenticate').then((response) => {
                 if (!response.ok) {
-                    Alert.alert("Network Error", "There was a problem connecting to the Songmap server.\n\n" + response.status);
-                    throw new Error(response.status);
+                    // If HTTP response is bad, throw error:
+                    throw new Error("There was a problem connecting to the Songmap service." + response.status);
                 }
                 return response;
             }).catch((error) => {
-                Alert.alert("Network Error", "There was a problem connecting to the Songmap server.\n\n" + error);
-                throw new Error("HTTP error");
+                // If any other error occurred (eg. url invalid), throw error:
+                throw new Error(error);
             });
             const body = await response.json().catch((error) => {
-                Alert.alert("Network Error", "There was a problem connecting to the Songmap server.\n\n" + error)
-                throw new Error("HTTP error");
+                // If error in parsing json data, throw error:
+                throw new Error(error);
             });
             return body;
         };
@@ -45,7 +45,7 @@ export default class FetchData {
         let url = "";
         if (type === "search") {
             // Replaces special characters in query:
-            input = input.replace(/\\|#|%|{|}|\^|\||`/g, "")
+            input = input.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, " ")
             const endpoint = 'https://api.spotify.com/v1/search?';
             const query = 'q=' + input;
             const type = '&type=' + searchType;
@@ -56,15 +56,16 @@ export default class FetchData {
             const id = input;
             url = endpoint + ty + id;
         }
+        // Makes request to Spotify API:
         const response = await fetch(url, myOptions).then((response) => {
+            // If HTTP response is bad, throw error:
             if (!response.ok) {
-                Alert.alert("Network Error", "There was a problem connecting to the Spotify server.\n\n" + response.status);
-                throw new Error("response.status");
+                throw new Error("There was a problem connecting to the Spotify service.\n" + response.status);
             }
             return response;
         }).catch((error) => {
-            Alert.alert("Network Error", "There was a problem connecting to the Spotify server.\n\n" + error);
-            throw new Error("HTTP error");
+            // If any other error occurred (eg. url invalid), throw error:
+            throw new Error(error);
         });
         data = await response.json();
         return data;
