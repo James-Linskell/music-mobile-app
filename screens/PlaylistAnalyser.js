@@ -4,7 +4,15 @@ import { Text, View, TextInput } from '../components/Themed';
 import NetInfo from "@react-native-community/netinfo";
 import { Alert } from "react-native";
 
+/**
+ * Module for Playlist Analyser screen. This contains information about the Playlist Analyser, and also serves as the
+ * home screen.
+ */
 export default class PlaylistAnalyser extends React.Component {
+    /**
+     * Sets default state values.
+     * @constructor
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -12,14 +20,25 @@ export default class PlaylistAnalyser extends React.Component {
         }
     }
 
+    /**
+     * Defines navigation options for React Navigation.
+     */
     static navigationOptions = {
-            title: 'PlaylistAnalyser'
-        };
+        title: 'PlaylistAnalyser'
+    };
 
+    /**
+     * This method updates whenever a character is typed in the search box and saves the search query to state.
+     * @param search
+     */
     onSearchChange = (search: any) => {
         this.setState({ search });
     };
 
+    /**
+     * This method is called when the 'Search' button is pressed. It redirects to the search results page, or throws an
+     * error if device has no internet connection.
+     */
     onButtonPress = () => {
         if (this.state.search === "") {
             return;
@@ -36,7 +55,10 @@ export default class PlaylistAnalyser extends React.Component {
         });
     }
 
-    // Sending data in navigation: https://reactnativecode.com/pass-textinput-entered-value-activity-screen/
+    /**
+     * Renders Playlist Analyser screen.
+     * @return <PlaylistAnalyser/>
+     */
     render() {
         return (
             <View style={styles.container}>
@@ -72,6 +94,7 @@ export default class PlaylistAnalyser extends React.Component {
 
 }
 
+// Defines styles for Playlist Analyser:
 const styles = StyleSheet.create({
     container: {
         flex: 1,

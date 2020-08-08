@@ -6,7 +6,15 @@ import SongCard from "../components/SongCard";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory-native";
 import Histogram from "../components/Histogram";
 
+/**
+ * Module for Playlist Analyser results screen. Shows results of the analysis, with information boxes and graphs.
+ */
 export default class PlaylistResults extends React.Component {
+    /**
+     * Sets default state values then calls the main function (waitForFetch). These are necessary to pre-populate the graphs with null data while the page waits
+     * to fetch results. Initialises a loading indicator.
+     * @constructor
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -32,12 +40,14 @@ export default class PlaylistResults extends React.Component {
                     <ActivityIndicator size="large"/>
                 </View>
         }
-    }
-
-    componentDidMount() {
         this.waitForFetch();
     }
 
+    /**
+     * Fetches song/playlist data results from the Spotify web API using the FetchData helper class. Then it creates the
+     * final score chart and histograms, renders the finished page and saves this page to state. Throws an error and alerts
+     * user if the network connection failed.
+     */
     waitForFetch = async () => {
         // Fetch search data:
         const plId = this.props.route.params.plId;
@@ -125,50 +135,54 @@ export default class PlaylistResults extends React.Component {
 
         this.setState({
             loadContent:
-            <View>
-                <View style={styles.imgContainer} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
-                    <SongCard
-                        name={this.props.route.params.songInfo.name}
-                        album={this.props.route.params.songInfo.album}
-                        artist={this.props.route.params.songInfo.artist}
-                        art={this.props.route.params.songInfo.art}/>
-                </View>
-                <View style={{width: "85%", marginLeft: 28}} darkColor="rgba(255,255,255,0.9)" lightColor="rgba(150, 150, 255, 0.1)">
-                    {this.state.scoreChart}
-                </View>
-                <View style={styles.info}>
-                    <View style={styles.boxFit} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
-                        <Text style={styles.textFit}>{Math.round((this.state.score/12) * 100)}% Fit!</Text>
+                <View>
+                    <View style={styles.imgContainer} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
+                        <SongCard
+                            name={this.props.route.params.songInfo.name}
+                            album={this.props.route.params.songInfo.album}
+                            artist={this.props.route.params.songInfo.artist}
+                            art={this.props.route.params.songInfo.art}/>
+                    </View>
+                    <View style={{width: "85%", marginLeft: 28}} darkColor="rgba(255,255,255,0.9)" lightColor="rgba(150, 150, 255, 0.1)">
+                        {this.state.scoreChart}
+                    </View>
+                    <View style={styles.info}>
+                        <View style={styles.boxFit} darkColor="rgba(255,255,255,0.15)" lightColor="rgba(150, 150, 255, 0.1)">
+                            <Text style={styles.textFit}>{Math.round((this.state.score/12) * 100)}% Fit!</Text>
+                        </View>
+                    </View>
+                    {this.state.charts.danceHist}
+                    <View style={styles.grid}>
+                        <View>
+                            <Text style={styles.text}>Danceability:</Text>
+                            <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[0]}]}>{this.state.featureInfo.featureInfo1[0]}</Text>
+                            <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[0]}</Text>
+                        </View>
+                    </View>
+                    {this.state.charts.energyHist}
+                    <View style={styles.grid}>
+                        <View>
+                            <Text style={styles.text}>Energy:</Text>
+                            <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[1]}]}>{this.state.featureInfo.featureInfo1[1]}</Text>
+                            <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[1]}</Text>
+                        </View>
+                    </View>
+                    {this.state.charts.valenceHist}
+                    <View style={styles.grid}>
+                        <View>
+                            <Text style={styles.text}>Positivity:</Text>
+                            <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[2]}]}>{this.state.featureInfo.featureInfo1[2]}</Text>
+                            <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[2]}</Text>
+                        </View>
                     </View>
                 </View>
-                {this.state.charts.danceHist}
-                <View style={styles.grid}>
-                    <View>
-                        <Text style={styles.text}>Danceability:</Text>
-                        <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[0]}]}>{this.state.featureInfo.featureInfo1[0]}</Text>
-                        <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[0]}</Text>
-                    </View>
-                </View>
-                {this.state.charts.energyHist}
-                <View style={styles.grid}>
-                    <View>
-                        <Text style={styles.text}>Energy:</Text>
-                        <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[1]}]}>{this.state.featureInfo.featureInfo1[1]}</Text>
-                        <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[1]}</Text>
-                    </View>
-                </View>
-                {this.state.charts.valenceHist}
-                <View style={styles.grid}>
-                    <View>
-                        <Text style={styles.text}>Positivity:</Text>
-                        <Text style={[styles.text, {color: this.state.featureInfo.featureInfoColour[2]}]}>{this.state.featureInfo.featureInfo1[2]}</Text>
-                        <Text style={styles.ptext}>{this.state.featureInfo.featureInfo2[2]}</Text>
-                    </View>
-                </View>
-            </View>
         })
     }
 
+    /**
+     * Renders the results page with a loading header 'Analysing Playlist' with a progress indicator. This loading header
+     * is updated in the method waitForFetch when all fetch promises have been returned.
+     */
     render() {
         return (
             <View>
@@ -222,6 +236,7 @@ export default class PlaylistResults extends React.Component {
     }
 }
 
+// Defines styles for Playlist Results:
 const styles = StyleSheet.create({
     grid: {
         margin: 5,

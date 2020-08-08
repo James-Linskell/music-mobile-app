@@ -8,8 +8,8 @@ import useColorScheme from '../hooks/useColorScheme';
  * global device light/dark mode setting.
  */
 export function useThemeColor(
-  props: { light?: string; dark?: string },
-  colorName: Colors.light & Colors.dark
+    props: { light?: string; dark?: string },
+    colorName: Colors.light & Colors.dark
 ) {
   const theme = useColorScheme();
   const colorFromProps = props[theme];

@@ -3,23 +3,35 @@ import { StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * Module for About screen. Contains some links to social media and some informative text.
+ */
 export default class About extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+    /**
+     * Defines navigation options for React Navigation.
+     */
     static navigationOptions = {
         title: 'About'
     };
 
+    /**
+     * Opens external url to author's LinkedIn profile.
+     */
     openLinkedin() {
         Linking.openURL('https://www.linkedin.com/in/james-linskell-187382188');
     }
 
+    /**
+     * Opens external url to author's GitHub profile.
+     */
     openGithub() {
         Linking.openURL('https://github.com/James-Linskell');
     }
 
+    /**
+     * Renders About screen.
+     * @return <About/>
+     */
     render() {
         return (
             <View style={styles.container}>
@@ -49,10 +61,9 @@ export default class About extends React.Component {
             </View>
         );
     }
-
-
 }
 
+// Defines styles for About:
 const styles = StyleSheet.create({
     container: {
         flex: 1,

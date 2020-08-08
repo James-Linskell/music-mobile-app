@@ -51,32 +51,32 @@ export default class FeatureChart extends React.Component {
                     style={{tickLabels: {fontSize: 0}}}
                 />
                 <VictoryAxis dependentAxis
-                    label="Score"
-                    tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                             label="Score"
+                             tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                 />
                 <VictoryBar horizontal
-                    barWidth={20}
+                            barWidth={20}
                     // This labels the bars in the correct order:
-                    labels={({ datum }) =>
-                        datum._x === 1 ? "Danceability" :
-                            datum._x === 2 ? "Energy" : "Positivity"
-                    }
-                    labelComponent={<VictoryLabel
-                        // This makes the label inside the bar if it is too long, or outside if the bar is short:
-                        textAnchor={({ datum }) => datum._y >= 4 ? "end" : "start"}
-                        // This gives the labels a bit of padding according to the same rules as above:
-                        dx={({ datum }) => datum._y >= 4 ? -4 : 4}/>}
-                    data={translatedData}
-                    x="feature"
-                    y="number"
-                    style={{
-                        data: {
-                            fill: "#d6645c"
-                        },
-                        labels: {
-                            fill: "white"
-                        }
-                    }}
+                            labels={({ datum }) =>
+                                datum._x === 1 ? "Danceability" :
+                                    datum._x === 2 ? "Energy" : "Positivity"
+                            }
+                            labelComponent={<VictoryLabel
+                                // This makes the label inside the bar if it is too long, or outside if the bar is short:
+                                textAnchor={({ datum }) => datum._y >= 4 ? "end" : "start"}
+                                // This gives the labels a bit of padding according to the same rules as above:
+                                dx={({ datum }) => datum._y >= 4 ? -4 : 4}/>}
+                            data={translatedData}
+                            x="feature"
+                            y="number"
+                            style={{
+                                data: {
+                                    fill: "#d6645c"
+                                },
+                                labels: {
+                                    fill: "white"
+                                }
+                            }}
                 />
             </VictoryChart>
         // Sets chart to state for rendering:

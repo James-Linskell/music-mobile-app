@@ -4,9 +4,15 @@ import SongCard from "../components/SongCard";
 import GenerateInfo from "../helpers/GenerateInfo";
 import FetchData from "../helpers/FetchData";
 import {ActivityIndicator, Alert, ScrollView, StyleSheet} from "react-native";
-import {CommonActions} from "@react-navigation/native";
 
+/**
+ * Module for playlist search results screen. Shows a list of search results.
+ */
 export default class SearchPlaylistResults extends React.Component {
+    /**
+     * Sets default state values and a 'Searching' loading indicator. Calls main function.
+     * @constructor
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -16,12 +22,25 @@ export default class SearchPlaylistResults extends React.Component {
                     <ActivityIndicator size="large"/>
                 </View>
         }
-    }
-
-    componentDidMount() {
         this.waitForFetch();
     }
 
+    /**
+     * This method is called when a search result item is pressed. It redirects to the playlist analyser results page, or throws an
+     * error if device has no internet connection.
+     */
+    onButtonPress = (plId) => {
+        this.props.navigation.navigate('PlaylistResults', {
+            songId: this.props.route.params.songId,
+            plId: plId,
+            songInfo: this.props.route.params.songInfo
+        });
+    }
+
+    /**
+     * Fetches playlist search results from the Spotify web API using the FetchData helper class. Throws an error and alerts
+     * user if the network connection failed.
+     */
     waitForFetch = async () => {
         // Set timeout for 'searching' message to appear:
         setTimeout(() => {
@@ -31,10 +50,10 @@ export default class SearchPlaylistResults extends React.Component {
         }, 1000);
         // Fetch search data:
         const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'playlist').catch((error) => {
-                // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
-                Alert.alert("Network Error", "" + error);
-                throw new Error(error);
-            });
+            // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
+            Alert.alert("Network Error", "" + error);
+            throw new Error(error);
+        });
         // Clear all timeouts (as search is complete):
         let id = setTimeout(function () {
         }, 0);
@@ -44,18 +63,11 @@ export default class SearchPlaylistResults extends React.Component {
                 prompt: null
             });
         }
-        // Error handling if no search results are returned:
-        // if (data.playlists.items.length === 0) {
-        //     this.setState({
-        //         prompt: "No results found!",
-        //     });
-        //     return;
-        // }
-
         const playlists = GenerateInfo.generatePlaylistInfo(data.playlists.items);
 
         var grid = [];
 
+        // Creates a ListView-like grid of search results:
         for (let i = 0; i < playlists.length; i++) {
             let name = playlists[i].name;
             let description = playlists[i].description;;
@@ -81,21 +93,14 @@ export default class SearchPlaylistResults extends React.Component {
             />)
             grid.push(<View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)" key={i+100}/>)
         }
-
         this.setState({
             results: grid
         })
     }
 
-    onButtonPress = (plId) => {
-        this.props.navigation.navigate('PlaylistResults', {
-            songId: this.props.route.params.songId,
-            plId: plId,
-            songInfo: this.props.route.params.songInfo
-        });
-    }
-
-
+    /**
+     * Renders the playlist search results page.
+     */
     render() {
         return (
             <View style={{flex: 1}}>
@@ -108,6 +113,7 @@ export default class SearchPlaylistResults extends React.Component {
     }
 }
 
+// Defines styles for Search Playlist Results:
 const styles = StyleSheet.create({
     separator: {
         marginVertical: 5,

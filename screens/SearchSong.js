@@ -7,7 +7,14 @@ import SongCard from "../components/SongCard";
 import { CommonActions } from '@react-navigation/native';
 import {Alert} from "react-native";
 
+/**
+ * Module for song search results screen. Shows a list of search results.
+ */
 export default class SearchSong extends React.Component {
+    /**
+     * Sets default state values and a 'Searching' loading indicator. Calls main function.
+     * @constructor
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -19,16 +26,20 @@ export default class SearchSong extends React.Component {
                     <ActivityIndicator size="large"/>
                 </View>
         }
-    }
-
-    static navigationOptions = {
-            title: 'SearchSong'
-        };
-
-    componentDidMount() {
         this.waitForFetch();
     }
 
+    /**
+     * Defines navigation options for React Navigation.
+     */
+    static navigationOptions = {
+        title: 'SearchSong'
+    };
+
+    /**
+     * This method is called when a search result item is pressed. It redirects to the song analyser results page, or throws an
+     * error if device has no internet connection.
+     */
     onButtonPress = (name, album, artist, art, id) => {
         if (this.props.route.params.chain === "playlist") {
             this.props.navigation.navigate('SearchPlaylist', {
@@ -53,6 +64,10 @@ export default class SearchSong extends React.Component {
         }
     }
 
+    /**
+     * Fetches song search results from the Spotify web API using the FetchData helper class. Throws an error and alerts
+     * user if the network connection failed.
+     */
     waitForFetch = async () => {
         // Set timeout for 'searching' message to appear:
         setTimeout(() => {
@@ -87,6 +102,7 @@ export default class SearchSong extends React.Component {
 
         var grid = [];
 
+        // Creates a ListView-like grid of search results:
         for (let i = 0; i < songs.length; i++) {
             let name = songs[i].name;
             let album = songs[i].album;;
@@ -109,7 +125,7 @@ export default class SearchSong extends React.Component {
                 artist={artist}
                 art={songs[i].art}
                 key={i}
-                />)
+            />)
             grid.push(<View style={styles.separator} darkColor="rgba(255,255,255,0.5)" lightColor="rgba(0, 0, 0, 0.1)" key={i+100}/>)
         }
 
@@ -118,6 +134,9 @@ export default class SearchSong extends React.Component {
         })
     }
 
+    /**
+     * Renders the song search results page.
+     */
     render() {
         return (
             <View lightColor="rgba(255,255,255,1)" darkColor="rgba(0, 0, 0, 0.1)" style={{flex: 1}}>
@@ -130,6 +149,7 @@ export default class SearchSong extends React.Component {
     }
 }
 
+// Defines styles for Search Song:
 const styles = StyleSheet.create({
     gridItem: {
         padding: 10,

@@ -5,14 +5,22 @@ import FetchData from "../helpers/FetchData";
 import FeatureChart from "../components/FeatureChart";
 import SongCard from "../components/SongCard";
 
+/**
+ * Module for Song Analyser results screen. Shows results of the analysis, with information boxes and graphs.
+ */
 export default class PlaylistResults extends React.Component {
+    /**
+     * Sets default state values. These are necessary to pre-populate the graphs with null data while the page waits
+     * to fetch results. Initialises a loading indicator.
+     * @constructor
+     */
     constructor(props) {
         super(props);
         this.state = {
             rawFeatures: [],
             featureChart:
                 <View style={styles.loading}>
-                    <Text style={styles.loadingText}>Analysing playlist...</Text>
+                    <Text style={styles.loadingText}>Loading Results...</Text>
                     <ActivityIndicator size="large"/>
                 </View>,
             rawAnalysis: [],
@@ -40,12 +48,19 @@ export default class PlaylistResults extends React.Component {
         }
     }
 
-    componentDidMount = async () => {
+    /**
+     * Calls the main functions to produce song results asynchronously.
+     */
+    componentDidMount = async() => {
         await this.waitForFeatures();
         await this.waitForTrack();
         await this.waitForAlbum();
     }
 
+    /**
+     * Fetches song data results from the Spotify web API using the FetchData helper class. Throws an error and alerts
+     * user if the network connection failed.
+     */
     waitForTrack = async () => {
         // Set timeout for 'searching' message to appear:
         setTimeout(() => {
@@ -95,10 +110,10 @@ export default class PlaylistResults extends React.Component {
         })
     }
 
-    /*
-* todo:
-*  refactor some of this to helper
-*/
+    /**
+     * Fetches song mood feature data results from the Spotify web API using the FetchData helper class. Throws an error and alerts
+     * user if the network connection failed.
+     */
     waitForFeatures = async () => {
         const songId = this.props.route.params.songInfo.songId;
         const data = await FetchData.fetchData(songId, 'analysis', 'audio-features/');
@@ -144,11 +159,14 @@ export default class PlaylistResults extends React.Component {
         }
     };
 
+    /**
+     * Fetches album data results from the Spotify web API using the FetchData helper class. Throws an error and alerts
+     * user if the network connection failed.
+     */
     waitForAlbum = async () => {
         if (this.state.invalid === true) {
             return;
         }
-        const songId = this.props.route.params.songInfo.songId;
         const data = await FetchData.fetchData(this.state.rawTrack.album.id, 'analysis', 'albums/').catch((error) => {
             // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
             Alert.alert("Network Error", "" + error);
@@ -167,6 +185,10 @@ export default class PlaylistResults extends React.Component {
         });
     };
 
+    /**
+     * Renders the results page with a loading header 'Loading Results' with a progress indicator. This loading header
+     * is updated in the method waitForFeatures when the fetch promise has been returned and the graph created.
+     */
     render() {
         return (
             <View>
@@ -234,6 +256,7 @@ export default class PlaylistResults extends React.Component {
     }
 }
 
+// Defines styles for Song Results:
 const styles = StyleSheet.create({
     grid: {
         margin: 10,

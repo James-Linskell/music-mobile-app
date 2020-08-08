@@ -48,7 +48,7 @@ export default class Histogram extends React.Component {
                     label={`${type}`}
                 />
                 <VictoryAxis dependentAxis
-                    label="Number of Songs"
+                             label="Number of Songs"
                 />
                 <VictoryBar
                     data={translatedData}

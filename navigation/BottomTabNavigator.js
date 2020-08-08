@@ -2,7 +2,6 @@ import { Foundation, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import SongAnalyser from '../screens/SongAnalyser';
@@ -16,9 +15,12 @@ import SongResults from "../screens/SongResults";
 
 const BottomTab = createBottomTabNavigator();
 
+/**
+ * Navigation module which creates a bottom tab navigator and nested screens for each tab (Song Analyser, Playlist Analyser and About).
+ * @returns bottom tab navigator
+ */
 export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
-
     return (
         <BottomTab.Navigator
             initialRouteName="PlaylistAnalyser"
@@ -66,6 +68,9 @@ function TabBarIcon3(props: { name: string; color: string }) {
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator();
 
+/**
+ * React navigation tab stack for Playlist Analyser.
+ */
 function TabOneNavigator() {
     return (
         <TabOneStack.Navigator>
@@ -100,6 +105,9 @@ function TabOneNavigator() {
 
 const TabTwoStack = createStackNavigator();
 
+/**
+ * React navigation tab stack for Song Analyser.
+ */
 function TabTwoNavigator() {
     return (
         <TabTwoStack.Navigator>
@@ -124,6 +132,9 @@ function TabTwoNavigator() {
 
 const TabThreeStack = createStackNavigator();
 
+/**
+ * React navigation tab stack for About.
+ */
 function TabThreeNavigator() {
     return (
         <TabThreeStack.Navigator>

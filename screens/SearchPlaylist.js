@@ -3,7 +3,15 @@ import {Text, TextInput, View} from "../components/Themed";
 import { ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import SongCard from "../components/SongCard";
 
+/**
+ * Module for Search Playlist screen. Shows the selected song from the song search, and a search box to search for a
+ * playlist.
+ */
 export default class SearchPlaylist extends React.Component {
+    /**
+     * Sets default state values.
+     * @constructor
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -13,10 +21,17 @@ export default class SearchPlaylist extends React.Component {
         }
     }
 
+    /**
+     * Defines navigation options for React Navigation.
+     */
     static navigationOptions = {
-        title: 'SearchPlaylist'
+        title: 'PlaylistAnalyser'
     };
 
+    /**
+     * This method is called when the 'Search' button is pressed. It redirects to the search results page, or throws an
+     * error if device has no internet connection.
+     */
     onButtonPress = () => {
         if (this.state.search === "") {
             return;
@@ -28,10 +43,17 @@ export default class SearchPlaylist extends React.Component {
         });
     }
 
+    /**
+     * This method updates whenever a character is typed in the search box and saves the search query to state.
+     * @param search
+     */
     onSearchChange = (search: any) => {
         this.setState({ search });
     };
 
+    /**
+     * Calls function to generate a SongCard once component has mounted. Necessary to receive props.
+     */
     componentDidMount() {
         let chosenCard = <SongCard
             name={this.props.route.params.songInfo.name}
@@ -44,6 +66,9 @@ export default class SearchPlaylist extends React.Component {
         });
     }
 
+    /**
+     * Renders the playlist search page.
+     */
     render() {
         return (
             <View style={styles.container}>
@@ -76,6 +101,8 @@ export default class SearchPlaylist extends React.Component {
     }
 }
 
+
+// Defines styles for Search Playlist:
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',

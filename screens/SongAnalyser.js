@@ -3,7 +3,14 @@ import {Alert, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, TextInput, View} from '../components/Themed';
 import NetInfo from "@react-native-community/netinfo";
 
+/**
+ * Module for Song Analyser screen. This contains information about the Song Analyser.
+ */
 export default class SongAnalyser extends React.Component {
+  /**
+   * Sets default state values.
+   * @constructor
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -11,14 +18,25 @@ export default class SongAnalyser extends React.Component {
     }
   }
 
+  /**
+   * Defines navigation options for React Navigation.
+   */
   static navigationOptions = {
     title: 'PlaylistAnalyser'
   };
 
+  /**
+   * This method updates whenever a character is typed in the search box and saves the search query to state.
+   * @param search
+   */
   onSearchChange = (search: any) => {
     this.setState({ search });
   };
 
+  /**
+   * This method is called when the 'Search' button is pressed. It redirects to the search results page, or throws an
+   * error if device has no internet connection.
+   */
   onButtonPress = () => {
     if (this.state.search === "") {
       return;
@@ -35,6 +53,10 @@ export default class SongAnalyser extends React.Component {
     });
   }
 
+  /**
+   * Renders Song Analyser screen.
+   * @return <PlaylistAnalyser/>
+   */
   render() {
     return (
         <View style={styles.container}>
@@ -68,6 +90,7 @@ export default class SongAnalyser extends React.Component {
     )}
 }
 
+// Defines styles for Song Analyser:
 const styles = StyleSheet.create({
   container: {
     flex: 1,
