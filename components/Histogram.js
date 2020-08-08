@@ -2,7 +2,7 @@ import React from "react";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory-native";
 
 /**
- * Generates a chart using Chart.js library. Creates histogram for a single mood feature of a song
+ * Generates a chart using Victory library. Creates histogram for a single mood feature of a song
  * (danceability, energy or valence). Takes an array of integers of data which has been pre-processed into bins.
  */
 export default class Histogram extends React.Component {

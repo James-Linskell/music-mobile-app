@@ -28,6 +28,7 @@ export default class SearchPlaylistResults extends React.Component {
     /**
      * This method is called when a search result item is pressed. It redirects to the playlist analyser results page, or throws an
      * error if device has no internet connection.
+     * @param plId playlist id
      */
     onButtonPress = (plId) => {
         this.props.navigation.navigate('PlaylistResults', {
@@ -42,27 +43,12 @@ export default class SearchPlaylistResults extends React.Component {
      * user if the network connection failed.
      */
     waitForFetch = async () => {
-        // Set timeout for 'searching' message to appear:
-        setTimeout(() => {
-            this.setState({
-                prompt: "Searching for results..."
-            });
-        }, 1000);
         // Fetch search data:
         const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'playlist').catch((error) => {
             // If any fetch error occurred (eg. network or json parsing error), throw error and alert user:
             Alert.alert("Network Error", "" + error);
             throw new Error(error);
         });
-        // Clear all timeouts (as search is complete):
-        let id = setTimeout(function () {
-        }, 0);
-        while (id--) {
-            window.clearTimeout(id);
-            this.setState({
-                prompt: null
-            });
-        }
         const playlists = GenerateInfo.generatePlaylistInfo(data.playlists.items);
 
         var grid = [];

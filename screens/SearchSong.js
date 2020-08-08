@@ -38,7 +38,12 @@ export default class SearchSong extends React.Component {
 
     /**
      * This method is called when a search result item is pressed. It redirects to the song analyser results page, or throws an
-     * error if device has no internet connection.
+     * error if device has no internet connection. Takes the song data as parameters.
+     * @param name
+     * @param album
+     * @param artist
+     * @param art
+     * @param id song id
      */
     onButtonPress = (name, album, artist, art, id) => {
         if (this.props.route.params.chain === "playlist") {
@@ -69,12 +74,6 @@ export default class SearchSong extends React.Component {
      * user if the network connection failed.
      */
     waitForFetch = async () => {
-        // Set timeout for 'searching' message to appear:
-        setTimeout(() => {
-            this.setState({
-                prompt: "Searching for results..."
-            });
-        }, 1000);
         // Fetch search data:
         const data = await FetchData.fetchData(this.props.route.params.textInput, 'search', 'track').catch((error) => {
             // If any fetch error occurred (eg. network or json parsing error), throw error, alert user and navigate home:
@@ -82,15 +81,6 @@ export default class SearchSong extends React.Component {
             this.props.navigation.dispatch(CommonActions.goBack());
             throw new Error(error);
         });
-        // Clear all timeouts (as search is complete):
-        let id = setTimeout(function () {
-        }, 0);
-        while (id--) {
-            window.clearTimeout(id);
-            this.setState({
-                prompt: null
-            });
-        }
         // Error handling if no search results are returned:
         if (data.tracks.items.length === 0) {
             this.setState({
