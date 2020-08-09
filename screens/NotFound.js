@@ -7,7 +7,7 @@ import { RootStackParamList } from '../types';
 /**
  * Default module for Not Found screen created by Expo. Errors with React Navigation redirect here.
  */
-export default function NotFoundScreen({
+export default function NotFound({
                                          navigation,
                                        }: StackScreenProps<RootStackParamList, 'NotFound'>) {
   return (
