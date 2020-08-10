@@ -84,7 +84,7 @@ export default class PlaylistResults extends React.Component {
             rawTrack: data,
         });
         // Fetch my API endpoint for sorting and truncating track data for song card:
-        const sortTrackData = await fetch('https://music-web-app-server.herokuapp.com/api/songSort/truncate', {
+        const sortTrackData = await fetch('https://songmapper.herokuapp.com/api/songSort/truncate', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -127,7 +127,7 @@ export default class PlaylistResults extends React.Component {
         }
 
         // Fetch my API endpoint for sorting track feature data:
-        const sortTrackData = await fetch('https://music-web-app-server.herokuapp.com/api/songSort/sortFeatures', {
+        const sortTrackData = await fetch('https://songmapper.herokuapp.com/api/songSort/sortFeatures', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

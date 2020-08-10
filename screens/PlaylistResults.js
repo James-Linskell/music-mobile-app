@@ -78,7 +78,7 @@ export default class PlaylistResults extends React.Component {
         });
 
         // Fetch my API endpoint for sorting and pre-processing the data:
-        const sortData = await fetch('http://music-web-app-server.herokuapp.com/api/plSort', {
+        const sortData = await fetch('http://songmapper.herokuapp.com/api/plSort', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

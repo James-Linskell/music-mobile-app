@@ -18,7 +18,7 @@ export default class FetchData {
          * @returns json body containing Spotify client token and test message
          */
         const getToken = async () => {
-            const response = await fetch('https://music-web-app-server.herokuapp.com/authenticate').then((response) => {
+            const response = await fetch('https://songmapper.herokuapp.com/authenticate').then((response) => {
                 if (!response.ok) {
                     // If HTTP response is bad, throw error:
                     throw new Error("There was a problem connecting to the Songmap service." + response.status);
