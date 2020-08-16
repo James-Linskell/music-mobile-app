@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../../Themed';
 import { AntDesign } from '@expo/vector-icons';
 
 /**
  * Module for About screen. Contains some links to social media and some informative text.
+ * @class
  */
 export default class About extends React.Component {
     /**

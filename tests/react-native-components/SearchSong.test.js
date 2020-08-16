@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SearchSong from '../../screens/SearchSong';
+import SearchSong from '../../src/screens/SearchSong';
 
 /**
  * Jest + react-test-renderer test for rendering SearchSong.

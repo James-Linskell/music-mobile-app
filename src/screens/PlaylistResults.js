@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, View} from "../components/Themed";
+import {Text, View} from "../../Themed";
 import {ActivityIndicator, Alert, Dimensions, ScrollView, StyleSheet} from "react-native";
 import FetchData from "../helpers/FetchData";
 import SongCard from "../components/SongCard";
@@ -8,8 +8,9 @@ import Histogram from "../components/Histogram";
 
 /**
  * Module for Playlist Analyser results screen. Shows results of the analysis, with information boxes and graphs.
+ * @class
  */
-export default class PlaylistResults extends React.Component {
+class PlaylistResults extends React.Component {
     /**
      * Sets default state values then calls the main function (waitForFetch). These are necessary to pre-populate the graphs with null data while the page waits
      * to fetch results. Initialises a loading indicator.
@@ -306,3 +307,5 @@ const styles = StyleSheet.create({
         flex: 1
     },
 })
+
+export default PlaylistResults;

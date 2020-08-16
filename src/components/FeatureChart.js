@@ -5,7 +5,7 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory-nat
  * Generates a chart using Chart.js library. Creates chart for the mood features of a song (danceability, energy and valence).
  * Takes raw data returned from the Spotify API as input and returns a React component.
  */
-export default class FeatureChart extends React.Component {
+class FeatureChart extends React.Component {
     /**
      * Sets default state values.
      * @constructor
@@ -93,3 +93,5 @@ export default class FeatureChart extends React.Component {
         );
     }
 }
+
+export default FeatureChart;

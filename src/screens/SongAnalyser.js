@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {Alert, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
-import {Text, TextInput, View} from '../components/Themed';
+import {Text, TextInput, View} from '../../Themed';
 import NetInfo from "@react-native-community/netinfo";
 
 /**
  * Module for Song Analyser screen. This contains information about the Song Analyser.
+ * @class
  */
-export default class SongAnalyser extends React.Component {
+class SongAnalyser extends React.Component {
   /**
    * Sets default state values.
    * @constructor
@@ -29,7 +30,7 @@ export default class SongAnalyser extends React.Component {
    * This method updates whenever a character is typed in the search box and saves the search query to state.
    * @param search
    */
-  onSearchChange = (search: any) => {
+  onSearchChange = (search) => {
     this.setState({ search });
   };
 
@@ -142,3 +143,5 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
+
+export default SongAnalyser;

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SongAnalyser from '../../screens/SongAnalyser';
+import SongAnalyser from '../../src/screens/SongAnalyser';
 
 /**
  * Jest + react-test-renderer test for rendering SongAnalyser.

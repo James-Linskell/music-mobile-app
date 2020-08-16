@@ -1,4 +1,4 @@
-import FetchData from "../../helpers/FetchData";
+import FetchData from "../../src/helpers/FetchData";
 // Run with 'npm test', not 'jest'.
 
 /**

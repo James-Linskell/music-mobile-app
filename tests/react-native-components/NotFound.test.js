@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import NotFound from '../../screens/NotFound';
+import NotFound from '../../NotFound';
 
 /**
  * Jest + react-test-renderer test for rendering NotFound screen.

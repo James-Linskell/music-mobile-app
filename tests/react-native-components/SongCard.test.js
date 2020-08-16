@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SongCard from '../../components/SongCard';
+import SongCard from '../../src/components/SongCard';
 
 /**
  * Jest + react-test-renderer test for rendering SongCard. This currently fails for all modules with graphs

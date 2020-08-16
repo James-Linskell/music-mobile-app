@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SearchPlaylistResults from '../../screens/SearchPlaylistResults';
+import SearchPlaylistResults from '../../src/screens/SearchPlaylistResults';
 
 /**
  * Jest + react-test-renderer test for rendering SearchPlaylistResults.

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, View} from "../components/Themed";
+import {Text, View} from "../../Themed";
 import SongCard from "../components/SongCard";
 import GenerateInfo from "../helpers/GenerateInfo";
 import FetchData from "../helpers/FetchData";
@@ -7,8 +7,9 @@ import {ActivityIndicator, Alert, ScrollView, StyleSheet} from "react-native";
 
 /**
  * Module for playlist search results screen. Shows a list of search results.
+ * @class
  */
-export default class SearchPlaylistResults extends React.Component {
+class SearchPlaylistResults extends React.Component {
     /**
      * Sets default state values and a 'Searching' loading indicator. Calls main function.
      * @constructor
@@ -118,3 +119,5 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     }
 })
+
+export default SearchPlaylistResults;

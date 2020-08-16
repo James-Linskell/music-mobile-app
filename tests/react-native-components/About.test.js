@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import About from '../../screens/About';
+import About from '../../src/screens/About';
 
 /**
  * Jest + react-test-renderer test for rendering About screen.

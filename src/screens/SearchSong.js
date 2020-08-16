@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, View} from "../components/Themed";
+import {Text, View} from "../../Themed";
 import FetchData from "../helpers/FetchData"
 import GenerateInfo from "../helpers/GenerateInfo"
 import {ActivityIndicator, ScrollView, StyleSheet} from "react-native";
@@ -9,8 +9,9 @@ import {Alert} from "react-native";
 
 /**
  * Module for song search results screen. Shows a list of search results.
+ * @class
  */
-export default class SearchSong extends React.Component {
+class SearchSong extends React.Component {
     /**
      * Sets default state values and a 'Searching' loading indicator. Calls main function.
      * @constructor
@@ -162,3 +163,5 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     }
 });
+
+export default SearchSong;

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SongResults from '../../screens/SongResults';
+import SongResults from '../../src/screens/SongResults';
 
 // I tried everything I could to get the config for victory-native to work, modifying my package.json with their own jest config
 // as mentioned at their website (https://formidable.com/open-source/victory/docs/native/):

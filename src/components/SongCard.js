@@ -1,11 +1,11 @@
 import * as React from "react";
-import {Text, View} from "./Themed";
+import {Text, View} from "../../Themed";
 import {StyleSheet, TouchableOpacity, Image} from "react-native";
 
 /**
  * Creates a custom SongCard component which displays the data for a song and the album artwork in a small container.
  */
-export default class SongCard extends React.Component {
+class SongCard extends React.Component {
     /**
      * Renders the SongCard component.
      * @return <SongCard/>
@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
         fontSize: 19
     }
 })
+
+export default SongCard;

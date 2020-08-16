@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
-import { Text, View, TextInput } from '../components/Themed';
+import { Text, View, TextInput } from '../../Themed';
 import NetInfo from "@react-native-community/netinfo";
 import { Alert } from "react-native";
 
 /**
  * Module for Playlist Analyser screen. This contains information about the Playlist Analyser, and also serves as the
  * home screen.
+ * @class
  */
-export default class PlaylistAnalyser extends React.Component {
+class PlaylistAnalyser extends React.Component {
     /**
      * Sets default state values.
      * @constructor
@@ -31,7 +32,7 @@ export default class PlaylistAnalyser extends React.Component {
      * This method updates whenever a character is typed in the search box and saves the search query to state.
      * @param search
      */
-    onSearchChange = (search: any) => {
+    onSearchChange = (search) => {
         this.setState({ search });
     };
 
@@ -146,3 +147,5 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 });
+
+export default PlaylistAnalyser;

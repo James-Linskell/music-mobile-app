@@ -2,10 +2,11 @@ import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from './types';
 
 /**
  * Default module for Not Found screen created by Expo. Errors with React Navigation redirect here.
+ * @class
  */
 export default function NotFound({
                                          navigation,

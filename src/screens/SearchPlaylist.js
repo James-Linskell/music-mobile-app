@@ -1,13 +1,14 @@
 import * as React from "react";
-import {Text, TextInput, View} from "../components/Themed";
+import {Text, TextInput, View} from "../../Themed";
 import { ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import SongCard from "../components/SongCard";
 
 /**
  * Module for Search Playlist screen. Shows the selected song from the song search, and a search box to search for a
  * playlist.
+ * @class
  */
-export default class SearchPlaylist extends React.Component {
+class SearchPlaylist extends React.Component {
     /**
      * Sets default state values.
      * @constructor
@@ -47,7 +48,7 @@ export default class SearchPlaylist extends React.Component {
      * This method updates whenever a character is typed in the search box and saves the search query to state.
      * @param search
      */
-    onSearchChange = (search: any) => {
+    onSearchChange = (search) => {
         this.setState({ search });
     };
 
@@ -138,3 +139,5 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 });
+
+export default  SearchPlaylist;

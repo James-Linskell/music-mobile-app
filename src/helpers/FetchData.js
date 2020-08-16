@@ -3,7 +3,7 @@ import {Alert} from "react-native";
 /**
  * Helper module which has functions to fetch data from both the Node server and Spotify's API.
  */
-export default class FetchData {
+class FetchData {
     /**
      * Calls Spotify API to retrieve track/playlist data.
      * @param input search string or song/playlist id
@@ -71,3 +71,5 @@ export default class FetchData {
         return data;
     }
 }
+
+export default FetchData;

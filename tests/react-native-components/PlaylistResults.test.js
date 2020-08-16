@@ -1,6 +1,6 @@
 import "react-native";
 import React from 'react';
-import PlaylistResults from '../../screens/PlaylistResults';
+import PlaylistResults from '../../src/screens/PlaylistResults';
 import renderer from 'react-test-renderer';
 
 // I tried everything I could to get the config for victory-native to work, modifying my package.json with their own jest config

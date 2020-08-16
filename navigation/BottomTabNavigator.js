@@ -4,14 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import SongAnalyser from '../screens/SongAnalyser';
-import About from '../screens/About';
-import PlaylistAnalyser from '../screens/PlaylistAnalyser';
-import SearchSong from "../screens/SearchSong";
-import SearchPlaylist from "../screens/SearchPlaylist";
-import SearchPlaylistResults from "../screens/SearchPlaylistResults";
-import PlaylistResults from "../screens/PlaylistResults";
-import SongResults from "../screens/SongResults";
+import SongAnalyser from '../src/screens/SongAnalyser';
+import About from '../src/screens/About';
+import PlaylistAnalyser from '../src/screens/PlaylistAnalyser';
+import SearchSong from "../src/screens/SearchSong";
+import SearchPlaylist from "../src/screens/SearchPlaylist";
+import SearchPlaylistResults from "../src/screens/SearchPlaylistResults";
+import PlaylistResults from "../src/screens/PlaylistResults";
+import SongResults from "../src/screens/SongResults";
 
 const BottomTab = createBottomTabNavigator();
 

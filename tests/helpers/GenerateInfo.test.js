@@ -1,4 +1,4 @@
-import GenerateInfo from "../../helpers/GenerateInfo";
+import GenerateInfo from "../../src/helpers/GenerateInfo";
 // Run with 'npm test', not 'jest'.
 
 /**

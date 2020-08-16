@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import PlaylistAnalyser from '../../screens/PlaylistAnalyser';
+import PlaylistAnalyser from '../../src/screens/PlaylistAnalyser';
 
 /**
  * Jest + react-test-renderer test for rendering PlaylistAnalyser.
