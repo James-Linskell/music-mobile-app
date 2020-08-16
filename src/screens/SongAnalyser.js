@@ -81,7 +81,7 @@ class SongAnalyser extends React.Component {
             <Text
                 style={styles.mainText}>
               The Song Analyser shows you a detailed
-              breakdown of the musical data and information for a chosen song. Search for a song to get started!
+              breakdown of the musical data and information for a chosen song. Search for a song by name, album or artist to get started!
             </Text>
             <Text style={styles.footer}>
               Note: song must be on Spotify.

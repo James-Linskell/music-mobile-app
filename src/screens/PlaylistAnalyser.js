@@ -83,7 +83,7 @@ class PlaylistAnalyser extends React.Component {
                     <Text
                         style={styles.mainText}>
                         The Playlist Analyser calculates how well your song fits in a chosen playlist, and shows you a detailed
-                        breakdown of the results. Search for a song to get started!
+                        breakdown of the results. Search for a song by name, album or artist to get started!
                     </Text>
                     <Text style={styles.footer}>
                         Note: song and playlist must be on Spotify.
